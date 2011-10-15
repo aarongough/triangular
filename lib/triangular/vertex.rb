@@ -1,23 +1,30 @@
 module Triangular
   class Vertex
+    extend Forwardable
     
-    attr_accessor :x, :y, :z
+    def_delegator :@point, :x, :x
+    def_delegator :@point, :y, :y
+    def_delegator :@point, :z, :z
     
-    def initialize(x, y, z)
-      @x = x
-      @y = y
-      @z = z      
+    def initialize(*args)
+      if args.length == 1 && args.first.is_a?(Point)
+        @point = args.first
+      elsif args.length == 3
+        @point = Point.new(x, y, z)      
+      else
+        raise "You must either supply the XYZ coordinates or a Point object to create a Vertex"
+      end
     end
     
     def self.parse(string)
       string.strip!
       match_data = string.match(self.pattern)
       
-      self.new(match_data[1].to_f, match_data[2].to_f, match_data[3].to_f)
+      self.new(Point.parse(match_data[:point]))
     end
     
     def self.pattern
-      /vertex\s+(-?\d+.\d+)\s(-?\d+.\d+)\s(-?\d+.\d+)/
+      /vertex\s+ (?<point>#{Point.pattern})/x
     end
     
   end
