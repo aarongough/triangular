@@ -20,6 +20,11 @@ module Triangular
       "vertex #{@point.to_s}"
     end
     
+    def ==(other)
+      return false unless other.is_a?(Vertex)
+      self.x == other.x && self.y == other.y && self.z == other.z
+    end
+    
     def self.parse(string)
       string.strip!
       match_data = string.match(self.pattern)

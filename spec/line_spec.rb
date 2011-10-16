@@ -168,4 +168,14 @@ describe Line do
       end
     end
   end
+  
+  describe "==" do
+    it "should return true when the two lines are identical" do
+      (Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_true
+    end
+    
+    it "should not return true when the lines are not identical" do
+      (Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_false
+    end
+  end
 end

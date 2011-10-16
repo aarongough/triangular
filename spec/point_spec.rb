@@ -54,4 +54,14 @@ describe Point do
       point.to_s.should == "1.0 2.0 3.0"
     end
   end
+  
+  describe "#==" do
+    it "should return true when the points have identical values" do
+      (Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.1)).should be_true
+    end
+    
+    it "should return false when the points do not have identical values" do
+      (Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.2)).should be_false
+    end
+  end
 end

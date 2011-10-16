@@ -8,6 +8,11 @@ module Triangular
       @end = line_end
     end
     
+    def ==(other)
+      return false unless other.is_a?(Line)
+      self.start == other.start && self.end == other.end
+    end
+    
     def intersects_z?(z_plane)
       if (@start.z >= z_plane && @end.z <= z_plane) || (@start.z <= z_plane && @end.z >= z_plane)
         true

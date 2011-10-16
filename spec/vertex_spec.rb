@@ -31,4 +31,14 @@ describe Vertex do
       vertex.to_s.should == "vertex 1.0 2.0 -3.0"
     end
   end
+  
+  describe "#==" do
+    it "should return true when the vertices have identical values" do
+      (Vertex.new(1.0, 2.0, -3.1) == Vertex.new(1.0, 2.0, -3.1)).should be_true
+    end
+    
+    it "should return false when the vertices do not have identical values" do
+      (Vertex.new(1.0, 2.0, -3.1) == Vertex.new(1.0, 2.0, -3.2)).should be_false
+    end
+  end
 end

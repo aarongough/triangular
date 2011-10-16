@@ -24,6 +24,11 @@ module Triangular
       output
     end
     
+    def slice_at_z(z_plane)
+      lines = @facets.map {|facet| facet.intersection_at_z(z_plane) }
+      lines.compact.uniq
+    end
+    
     def self.parse(string)
       partial_pattern = /\s* solid\s+ (?<name> [a-zA-Z0-9\-\_\.]+)?/x
       match_data = string.match(partial_pattern)

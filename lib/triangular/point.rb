@@ -13,6 +13,11 @@ module Triangular
       "#{@x.to_f} #{@y.to_f} #{@z.to_f}"
     end
     
+    def ==(other)
+      return false unless other.is_a?(Point)
+      self.x == other.x && self.y == other.y && self.z == other.z
+    end
+    
     def self.parse(string)
       string.strip!
       match_data = string.match(self.pattern)
