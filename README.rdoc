@@ -1,0 +1,43 @@
+= Triangular
+
+Triangular is an easy-to-use Ruby library for reading, writing and manipulating Stereolithography (STL) files.
+
+=== A Quick Example
+
+Take the following STL file:
+
+  solid y-axis-spacer
+  facet normal 0.0 0.0 -1.0
+  outer loop
+  vertex 16.5 0.0 -0.75
+  vertex 0.0 -9.5 -0.75
+  vertex 0.0 0.0 -0.75
+  endloop
+  endfacet
+  facet normal 0.0 0.0 -1.0
+  outer loop
+  vertex 0.0 -9.5 -0.75
+  vertex 16.5 0.0 -0.75
+  vertex 16.5 -9.5 -0.75
+  endloop
+  endfacet
+  endsolid y-axis-spacer
+  
+
+
+=== Installation
+
+For ease of use the Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
+
+  gem install triangular
+
+=== Usage
+
+
+
+=== Author & Credits
+
+Author:: {Aaron Gough}[mailto:aaron@aarongough.com]
+
+Copyright (c) 2011 {Aaron Gough}[http://thingsaaronmade.com/] ({thingsaaronmade.com}[http://thingsaaronmade.com/]), released under the MIT license
+
