@@ -178,4 +178,13 @@ describe Line do
       (Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_false
     end
   end
+  
+  describe "#to_svg_path" do 
+    it "should return a string containing an SVG path" do
+      line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0))
+      expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="1" />'
+      
+      line.to_svg_path.should == expected_output
+    end
+  end
 end
