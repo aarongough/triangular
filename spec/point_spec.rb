@@ -24,4 +24,11 @@ describe Point do
       end
     end
   end
+  
+  describe "#to_s" do
+    it "should return the XYZ components separated by spaces" do
+      point = Point.new(1.0, 2.0, -3.1)
+      point.to_s.should == "1.0 2.0 -3.0"
+    end
+  end
 end

@@ -2,6 +2,8 @@
 
 Triangular is an easy-to-use Ruby library for reading, writing and manipulating Stereolithography (STL) files.
 
+Please note that Triangular requires Ruby 1.9+
+
 === A Quick Example
 
 Take the following STL file:
