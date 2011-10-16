@@ -1,6 +1,7 @@
 require 'triangular/point'
 require 'triangular/vertex'
 require 'triangular/vector'
+require 'triangular/line'
 require 'triangular/facet'
 require 'triangular/solid'
 

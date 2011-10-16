@@ -106,4 +106,32 @@ describe Facet do
       facet.to_s.should == expected_string
     end
   end
+  
+  describe "#intersection_at_z" do
+    context "for a facet that intersects the target Z" do
+      before do
+        vertex1 = Vertex.new(0.0, 0.0, 0.0)
+        vertex2 = Vertex.new(0.0, 0.0, 6.0)
+        vertex3 = Vertex.new(6.0, 0.0, 6.0)
+        
+        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+      end
+      
+      it "should return a line object" do
+        @facet.intersection_at_z(3.0).should be_a Line
+      end
+      
+      it "should return a line with the correct start value" do
+        @facet.intersection_at_z(3.0).start.x.should == 0.0
+        @facet.intersection_at_z(3.0).start.y.should == 0.0
+        @facet.intersection_at_z(3.0).start.z.should == 3.0
+      end
+      
+      it "should return a line with the correct end value" do
+        @facet.intersection_at_z(3.0).end.x.should == 3.0
+        @facet.intersection_at_z(3.0).end.y.should == 0.0
+        @facet.intersection_at_z(3.0).end.z.should == 3.0
+      end
+    end
+  end
 end
