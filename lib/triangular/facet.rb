@@ -20,6 +20,30 @@ module Triangular
       output
     end
     
+    def lines
+      [
+        Line.new(@vertices[0], @vertices[1]),
+        Line.new(@vertices[1], @vertices[2]),
+        Line.new(@vertices[2], @vertices[0])
+      ]
+    end
+    
+    def intersection_at_z(z_plane)
+      return nil if @vertices.count{|vertex| vertex.z == z_plane} > 2
+      
+      intersection_points = []
+      lines.each do |line|
+        intersection_points << line.intersection_at_z(z_plane) unless line.start.z == z_plane && line.end.z == z_plane
+      end
+      
+      intersection_points.compact!
+      if intersection_points.empty?
+        nil
+      elsif intersection_points.count == 2
+        Line.new(intersection_points[0], intersection_points[1])
+      end
+    end
+    
     def self.parse(string)
       facets = []
       
