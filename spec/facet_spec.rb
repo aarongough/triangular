@@ -58,4 +58,24 @@ describe Facet do
       end
     end
   end
+  
+  describe "#to_s" do
+    it "should return the string representation for a facet" do
+      facet = Facet.new
+      facet.normal = Vector.new(0, 0, 1)
+      facet.vertices << Point.new(1, 2, 3)
+      facet.vertices << Point.new(1, 2, 3)
+      facet.vertices << Point.new(1, 2, 3)
+      
+      expected_string  = "facet normal 0.0 0.0 1.0\n"
+      expected_string += "outer loop\n"
+      expected_string += facet.vertices[0].to_s + "\n"
+      expected_string += facet.vertices[1].to_s + "\n"
+      expected_string += facet.vertices[2].to_s + "\n"
+      expected_string += "endloop\n"
+      expected_string += "endfacet\n"
+      
+      facet.to_s.should == expected_string
+    end
+  end
 end

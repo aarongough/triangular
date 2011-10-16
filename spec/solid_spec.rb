@@ -44,4 +44,30 @@ describe Solid do
       end
     end
   end
+  
+  describe "#to_s" do
+    it "should output a string representation exactly the same as the input" do
+      input  = "solid y-axis-spacer\n"
+      input += "facet normal 0.0 0.0 -1.0\n"
+      input += "outer loop\n"
+      input += "vertex 16.5 0.0 -0.75\n"
+      input += "vertex 0.0 -9.5 -0.75\n"
+      input += "vertex 0.0 0.0 -0.75\n"
+      input += "endloop\n"
+      input += "endfacet\n"
+      input += "facet normal -0.0 1.0 0.0\n"
+      input += "outer loop\n"
+      input += "vertex 0.0 -1.87 0.0\n"
+      input += "vertex 16.5 -1.87 -0.13\n"
+      input += "vertex 0.0 -1.87 -0.13\n"
+      input += "endloop\n"
+      input += "endfacet\n"
+      input += "endsolid y-axis-spacer\n"
+      
+      solid = Solid.parse(input)
+      output = solid.to_s
+      
+      output.should == input
+    end
+  end
 end

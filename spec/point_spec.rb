@@ -30,5 +30,10 @@ describe Point do
       point = Point.new(1.0, 2.0, -3.1)
       point.to_s.should == "1.0 2.0 -3.0"
     end
+    
+    it "should convert integers into floats for output" do
+      point = Point.new(1, 2, 3)
+      point.to_s.should == "1.0 2.0 3.0"
+    end
   end
 end
