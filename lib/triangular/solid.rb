@@ -8,6 +8,14 @@ module Triangular
       @facets = args
     end
     
+    def to_s
+      output = "solid #{@name || ""}\n"
+      @facets.each do |facet|
+        output += facet.to_s
+      end
+      output += "endsolid #{@name || ""}\n"
+    end
+    
     def self.parse(string)
       match_data = string.match(/\s* solid\s+ (?<name> [a-zA-Z0-9\-\_\.]+)?/x)
       

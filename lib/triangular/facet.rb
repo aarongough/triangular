@@ -8,6 +8,18 @@ module Triangular
       @vertices = args
     end
     
+    def to_s
+      output = "facet normal #{@normal.to_s}\n"
+      output += "outer loop\n"
+      @vertices.each do |vertex|
+        output += vertex.to_s + "\n"
+      end
+      output += "endloop\n"
+      output += "endfacet\n"
+      
+      output
+    end
+    
     def self.parse(string)
       match_data = string.match(self.pattern)
       

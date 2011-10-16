@@ -9,6 +9,10 @@ module Triangular
       @z = z      
     end
     
+    def to_s
+      "#{@x.to_f} #{@y.to_f} #{@z.to_f}"
+    end
+    
     def self.parse(string)
       string.strip!
       match_data = string.match(self.pattern)

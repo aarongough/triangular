@@ -10,10 +10,14 @@ module Triangular
       if args.length == 1 && args.first.is_a?(Point)
         @point = args.first
       elsif args.length == 3
-        @point = Point.new(x, y, z)      
+        @point = Point.new(args[0], args[1], args[2])      
       else
         raise "You must either supply the XYZ coordinates or a Point object to create a Vertex"
       end
+    end
+    
+    def to_s
+      "vertex #{@point.to_s}"
     end
     
     def self.parse(string)

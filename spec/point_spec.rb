@@ -28,7 +28,7 @@ describe Point do
   describe "#to_s" do
     it "should return the XYZ components separated by spaces" do
       point = Point.new(1.0, 2.0, -3.1)
-      point.to_s.should == "1.0 2.0 -3.0"
+      point.to_s.should == "1.0 2.0 -3.1"
     end
     
     it "should convert integers into floats for output" do
