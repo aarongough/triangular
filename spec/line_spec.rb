@@ -70,12 +70,12 @@ describe Line do
       context "and is located away from the origin" do
         context "with a positive Z vector" do
           before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(7.0, 7.0, 7.0))
+            @line = Line.new(Vertex.new(7.0, 7.0, 1.0), Vertex.new(7.0, 7.0, 7.0))
           end
           
           it "should return a Point representing the intersection" do
-            @line.intersection_at_z(4.0).x.should == 4.0
-            @line.intersection_at_z(4.0).y.should == 4.0
+            @line.intersection_at_z(4.0).x.should == 7.0
+            @line.intersection_at_z(4.0).y.should == 7.0
             @line.intersection_at_z(4.0).z.should == 4.0
           end
         end
