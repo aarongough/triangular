@@ -26,7 +26,7 @@ module Triangular
       raise "Cannot calculate intersection for line that lies on the target Z plane" if @start.z == z_plane && @end.z == z_plane
       
       x_intersect = (@end.x - @start.x) / (@end.z - @start.z) * (z_plane - @start.z) + @start.x
-      y_intersect = (@end.y - @start.y) / (@end.z - @start.z) * (z_plane - @start.z) + @start.x
+      y_intersect = (@end.y - @start.y) / (@end.z - @start.z) * (z_plane - @start.z) + @start.y
       
       Point.new(x_intersect, y_intersect, z_plane)
     end
