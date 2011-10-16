@@ -23,6 +23,24 @@ describe Point do
         @result.z.should == -0.75
       end
     end
+    
+    context "with a point that contains exponential notation" do
+      before do
+        @result = Point.parse("  -5.23431439438796e-32 0.0 5.23431439438796e32 ")
+      end
+      
+      it "should correctly set the X value" do
+        @result.x.should == -5.23431439438796e-32
+      end
+      
+      it "should correctly set the Y value" do
+        @result.y.should == 0.0
+      end
+      
+      it "should correctly set the Z value" do
+        @result.z.should == 5.23431439438796e32
+      end
+    end
   end
   
   describe "#to_s" do

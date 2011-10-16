@@ -21,17 +21,25 @@ module Triangular
     end
     
     def self.parse(string)
-      match_data = string.match(self.pattern)
+      facets = []
       
-      facet = self.new
+      string.scan(self.pattern) do |match_data|
+        facet = self.new
+        
+        facet.vertices << Vertex.parse(match_data[4])
+        facet.vertices << Vertex.parse(match_data[9])
+        facet.vertices << Vertex.parse(match_data[14])
+        
+        facet.normal = Vector.parse(match_data[0])
+        
+        facets << facet
+      end
       
-      facet.vertices << Vertex.parse(match_data[:vertex1])
-      facet.vertices << Vertex.parse(match_data[:vertex2])
-      facet.vertices << Vertex.parse(match_data[:vertex3])
-      
-      facet.normal = Vector.parse(match_data[:normal])
-      
-      facet
+      if facets.length == 1
+        facets.first
+      else
+        facets
+      end
     end
     
     def self.pattern

@@ -11,19 +11,26 @@ module Triangular
     def to_s
       output = "solid #{@name || ""}\n"
       @facets.each do |facet|
-        output += facet.to_s
+        output << "facet normal #{facet.normal.x.to_f} #{facet.normal.y.to_f} #{facet.normal.z.to_f}\n"
+        output << "outer loop\n"
+        facet.vertices.each do |vertex|
+          output <<"vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
+        end
+        output << "endloop\n"
+        output << "endfacet\n"
       end
-      output += "endsolid #{@name || ""}\n"
+      output << "endsolid #{@name || ""}\n"
+      
+      output
     end
     
     def self.parse(string)
-      match_data = string.match(/\s* solid\s+ (?<name> [a-zA-Z0-9\-\_\.]+)?/x)
+      partial_pattern = /\s* solid\s+ (?<name> [a-zA-Z0-9\-\_\.]+)?/x
+      match_data = string.match(partial_pattern)
       
       solid = self.new(match_data[:name])
       
-      string.gsub(Facet.pattern) do |facet|
-        solid.facets << Facet.parse(facet)
-      end
+      solid.facets = Facet.parse(string.gsub(partial_pattern, ""))
       
       solid
     end

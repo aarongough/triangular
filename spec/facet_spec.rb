@@ -57,6 +57,34 @@ describe Facet do
         @result.vertices[2].z.should == -0.75
       end
     end
+    
+    context "when passed multiple facets" do
+      before do
+        @result = Facet.parse(<<-EOD)
+          facet normal 0.0 0.0 -1.0
+          outer loop
+          vertex 16.5 0.0 -0.75
+          vertex 0.0 -9.5 -0.75
+          vertex 0.0 0.0 -0.75
+          endloop
+          endfacet
+          facet normal 0.0 0.0 -1.0
+          outer loop
+          vertex 16.5 0.0 -0.75
+          vertex 0.0 -9.5 -0.75
+          vertex 0.0 0.0 -0.75
+          endloop
+          endfacet
+        EOD
+      end
+      
+      it "should return multiple facet objects" do
+        @result.should be_a Array
+        @result.each do |item|
+          item.should be_a Facet
+        end
+      end
+    end
   end
   
   describe "#to_s" do
