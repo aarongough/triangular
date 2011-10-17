@@ -1,3 +1,5 @@
+require 'forwardable'
+
 module Triangular
   class Vertex
     extend Forwardable
