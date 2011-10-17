@@ -39,7 +39,7 @@ module Triangular
       intersection_points.compact!
       if intersection_points.empty?
         nil
-      elsif intersection_points.count == 2
+      elsif intersection_points.count == 2       
         Line.new(intersection_points[0], intersection_points[1])
       end
     end

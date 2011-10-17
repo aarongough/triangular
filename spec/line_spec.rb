@@ -123,13 +123,13 @@ describe Line do
     context "and spans both positive and negative space" do
       context "with a positive Z vector" do
         before do
-          @line = Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))
+          @line = Line.new(Vertex.new(-1.0, 1.0, 1.0), Vertex.new(1.0, 1.0, -1.0))
         end
         
         it "should return a Point representing the intersection" do
-          @line.intersection_at_z(0).x.should == 0
-          @line.intersection_at_z(0).y.should == 0
-          @line.intersection_at_z(0).z.should == 0
+          @line.intersection_at_z(0).x.should == 0.0
+          @line.intersection_at_z(0).y.should == 1.0
+          @line.intersection_at_z(0).z.should == 0.0
         end
       end
       

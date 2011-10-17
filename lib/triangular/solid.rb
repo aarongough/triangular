@@ -26,7 +26,9 @@ module Triangular
     
     def slice_at_z(z_plane)
       lines = @facets.map {|facet| facet.intersection_at_z(z_plane) }
-      lines.compact
+      lines.compact!
+      
+      Polyline.new(lines)
     end
     
     def self.parse(string)

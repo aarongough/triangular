@@ -70,4 +70,16 @@ describe Solid do
       output.should == input
     end
   end
+  
+  describe "#slice_at_z" do
+    before do
+      @solid = Solid.parse(File.open("#{File.dirname(__FILE__)}/fixtures/test_cube.stl").read)
+    end
+
+    it "should return a Polyline" do
+      @solid.slice_at_z(0).should be_a Polyline
+    end
+    
+    
+  end
 end

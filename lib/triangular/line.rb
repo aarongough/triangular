@@ -32,7 +32,7 @@ module Triangular
     end
     
     def to_svg_path
-      "<path d=\"M #{@start.x} #{@start.y} L #{@end.x} #{@end.x}\" fill=\"none\" stroke=\"black\" stroke-width=\"1\" />"
+      "<path d=\"M #{@start.x} #{@start.y} L #{@end.x} #{@end.y}\" fill=\"none\" stroke=\"black\" stroke-width=\"1\" />"
     end
   end
 end

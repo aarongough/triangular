@@ -6,6 +6,8 @@ module Triangular
     def_delegator :@point, :y, :y
     def_delegator :@point, :z, :z
     
+    attr_accessor :point
+    
     def initialize(*args)
       if args.length == 1 && args.first.is_a?(Point)
         @point = args.first

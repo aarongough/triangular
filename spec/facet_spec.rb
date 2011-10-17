@@ -200,6 +200,32 @@ describe Facet do
       end
     end
     
+    context "with vertices in both positive and negative space" do
+      before do
+        @facet = Facet.parse(<<-EOD)
+          facet normal -0.0 1.0 -0.0
+          outer loop
+          vertex -1.0 1.0 1.0
+          vertex 1.0 1.0 -1.0
+          vertex -1.0 1.0 -1.0
+          endloop
+          endfacet
+        EOD
+      end
+      
+      it "should return a line with the correct start value" do
+        @facet.intersection_at_z(0.0).start.x.should == 0.0
+        @facet.intersection_at_z(0.0).start.y.should == 1.0
+        @facet.intersection_at_z(0.0).start.z.should == 0.0
+      end
+      
+      it "should return a line with the correct end value" do
+        @facet.intersection_at_z(0.0).end.x.should == -1.0
+        @facet.intersection_at_z(0.0).end.y.should == 1.0
+        @facet.intersection_at_z(0.0).end.z.should == 0.0
+      end
+    end
+    
     context "for a facet that lies on the target Z plane" do
       before do
         vertex1 = Vertex.new(0.0, 0.0, 1.0)
