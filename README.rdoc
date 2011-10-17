@@ -4,7 +4,7 @@ Triangular is an easy-to-use Ruby library for reading, writing and manipulating 
 
 The main purpose of Triangular is to enable its users to quickly create new software for Rapid Prototyping and Personal Manufacturing applications. Triangular has many of the core functions needed in order to generate toolpaths for 3D printers and CNC Mills/Routers.
 
-Please note that Triangular requires Ruby 1.9+
+Please note that Triangular requires Ruby 1.9+. Triangular is currently in the Alpha stage of development which means that the API can and will change, and that new features will be added often!
 
 === A Quick Example
 
