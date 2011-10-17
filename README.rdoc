@@ -2,40 +2,26 @@
 
 Triangular is an easy-to-use Ruby library for reading, writing and manipulating Stereolithography (STL) files.
 
+The main purpose of Triangular is to enable its users to quickly create new software for Rapid Prototyping and Personal Manufacturing applications. Triangular has many of the core functions needed in order to generate toolpaths for 3D printers and CNC Mills/Routers.
+
 Please note that Triangular requires Ruby 1.9+
 
 === A Quick Example
 
-Take the following STL file:
-
-  solid y-axis-spacer
-  facet normal 0.0 0.0 -1.0
-  outer loop
-  vertex 16.5 0.0 -0.75
-  vertex 0.0 -9.5 -0.75
-  vertex 0.0 0.0 -0.75
-  endloop
-  endfacet
-  facet normal 0.0 0.0 -1.0
-  outer loop
-  vertex 0.0 -9.5 -0.75
-  vertex 16.5 0.0 -0.75
-  vertex 16.5 -9.5 -0.75
-  endloop
-  endfacet
-  endsolid y-axis-spacer
+  # Open and parse an STL file
+  solid = Triangular.parse_file("test.stl")
   
-
+  # Cut a section slice of the model at a Z height of 1.0
+  slice = solid.slice_at_z(1.0)
+  
+  # Create an SVG image of the slice for further manipulation
+  svg = slice.to_svg
 
 === Installation
 
 For ease of use the Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
 
   gem install triangular
-
-=== Usage
-
-
 
 === Author & Credits
 
