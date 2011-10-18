@@ -13,6 +13,12 @@ module Triangular
       "#{@x.to_f} #{@y.to_f} #{@z.to_f}"
     end
     
+    def translate!(x, y, z)
+      @x += x
+      @y += y
+      @z += z
+    end
+    
     def ==(other)
       return false unless other.is_a?(Point)
       self.x == other.x && self.y == other.y && self.z == other.z

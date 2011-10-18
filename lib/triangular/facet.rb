@@ -44,6 +44,12 @@ module Triangular
       end
     end
     
+    def translate!(x, y, z)
+      @vertices.each do |vertex|
+        vertex.translate!(x, y, z)
+      end
+    end    
+    
     def self.parse(string)
       facets = []
       

@@ -31,6 +31,12 @@ module Triangular
       Polyline.new(lines)
     end
     
+    def translate!(x, y, z)
+      @facets.each do |facet|
+        facet.translate!(x, y, z)
+      end
+    end
+    
     def self.parse(string)
       partial_pattern = /\s* solid\s+ (?<name> [a-zA-Z0-9\-\_\.]+)?/x
       match_data = string.match(partial_pattern)
