@@ -24,6 +24,30 @@ module Triangular
       output
     end
     
+    def get_bounds
+      largest_x = @facets[0].vertices[0].x
+      largest_y = @facets[0].vertices[0].y
+      largest_z = @facets[0].vertices[0].z
+      
+      smallest_x = @facets[0].vertices[0].x
+      smallest_y = @facets[0].vertices[0].y
+      smallest_z = @facets[0].vertices[0].z
+      
+      @facets.each do |facet|
+        facet.vertices.each do |vertex|
+          largest_x = vertex.x if vertex.x > largest_x
+          largest_y = vertex.y if vertex.y > largest_y
+          largest_z = vertex.z if vertex.z > largest_z
+          
+          smallest_x = vertex.x if vertex.x < smallest_x
+          smallest_y = vertex.y if vertex.y < smallest_y
+          smallest_z = vertex.z if vertex.z < smallest_z
+        end
+      end
+      
+      [Point.new(smallest_x, smallest_y, smallest_z), Point.new(largest_x, largest_y, largest_z)]
+    end
+    
     def slice_at_z(z_plane)
       lines = @facets.map {|facet| facet.intersection_at_z(z_plane) }
       lines.compact!
