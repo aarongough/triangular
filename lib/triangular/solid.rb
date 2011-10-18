@@ -48,6 +48,11 @@ module Triangular
       [Point.new(smallest_x, smallest_y, smallest_z), Point.new(largest_x, largest_y, largest_z)]
     end
     
+    def align_to_origin!
+      bounds = self.get_bounds
+      self.translate!(-bounds[0].x, -bounds[0].y, -bounds[0].z)
+    end
+    
     def slice_at_z(z_plane)
       lines = @facets.map {|facet| facet.intersection_at_z(z_plane) }
       lines.compact!
