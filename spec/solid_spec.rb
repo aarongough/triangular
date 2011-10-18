@@ -79,7 +79,44 @@ describe Solid do
     it "should return a Polyline" do
       @solid.slice_at_z(0).should be_a Polyline
     end
+  end
+  
+  describe "#get_bounds" do
+    before do
+      @solid = Solid.parse(<<-EOD)
+        solid y-axis-spacer
+        facet normal 0.0 0.0 -1.0
+        outer loop
+        vertex -16.5 0.0 -0.75
+        vertex 0.0 -9.5 -0.75
+        vertex 0.0 0.0 -0.75
+        endloop
+        endfacet
+        facet normal -0.0 1.0 0.0
+        outer loop
+        vertex 0.0 -1.87 0.0
+        vertex 16.5 -1.87 -0.13
+        vertex 0.0 1.87 -0.13
+        endloop
+        endfacet
+        endsolid y-axis-spacer
+      EOD
+    end
     
+    it "should return an array" do
+      @solid.get_bounds.should be_a Array
+    end
     
+    it "should return a point with the smallest bounds" do
+      @solid.get_bounds[0].x.should == -16.5
+      @solid.get_bounds[0].y.should == -9.5
+      @solid.get_bounds[0].z.should == -0.75
+    end
+    
+    it "should return a point with the largest bounds" do
+      @solid.get_bounds[1].x.should == 16.5
+      @solid.get_bounds[1].y.should == 1.87
+      @solid.get_bounds[1].z.should == 0.0
+    end
   end
 end
