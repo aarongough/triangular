@@ -119,4 +119,34 @@ describe Solid do
       @solid.get_bounds[1].z.should == 0.0
     end
   end
+  
+  describe "#translate!" do
+    before do
+      @solid = Solid.parse(<<-EOD)
+        solid y-axis-spacer
+        facet normal 0.0 0.0 -1.0
+        outer loop
+        vertex -16.5 0.0 -0.75
+        vertex 0.0 -9.5 -0.75
+        vertex 0.0 0.0 -0.75
+        endloop
+        endfacet
+        facet normal -0.0 1.0 0.0
+        outer loop
+        vertex 0.0 -1.87 0.0
+        vertex 16.5 -1.87 -0.13
+        vertex 0.0 1.87 -0.13
+        endloop
+        endfacet
+        endsolid y-axis-spacer
+      EOD
+    end
+    
+    it "should call translate on each of it's Facets" do
+      @solid.facets[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      @solid.facets[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      
+      @solid.translate!(16.5, 9.5, 0.75)
+    end
+  end
 end

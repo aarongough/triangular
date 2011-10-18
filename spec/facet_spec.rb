@@ -154,52 +154,6 @@ describe Facet do
       end
     end
     
-    context "for a facet that intersects the target Z plane at an angle" do
-      before do
-        vertex1 = Vertex.new(0.0, 0.0, 0.0)
-        vertex2 = Vertex.new(0.0, 6.0, 6.0)
-        vertex3 = Vertex.new(6.0, 6.0, 6.0)
-        
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
-      end
-      
-      context "when the target Z plane is 3.0" do
-        it "should return a line object" do
-          @facet.intersection_at_z(3.0).should be_a Line
-        end
-        
-        it "should return a line with the correct start value" do
-          @facet.intersection_at_z(3.0).start.x.should == 0.0
-          @facet.intersection_at_z(3.0).start.y.should == 3.0
-          @facet.intersection_at_z(3.0).start.z.should == 3.0
-        end
-        
-        it "should return a line with the correct end value" do
-          @facet.intersection_at_z(3.0).end.x.should == 3.0
-          @facet.intersection_at_z(3.0).end.y.should == 3.0
-          @facet.intersection_at_z(3.0).end.z.should == 3.0
-        end
-      end
-      
-      context "when the target Z plane is 6.0" do
-        it "should return a line object" do
-          @facet.intersection_at_z(6.0).should be_a Line
-        end
-        
-        it "should return a line with the correct start value" do
-          @facet.intersection_at_z(6.0).start.x.should == 0.0
-          @facet.intersection_at_z(6.0).start.y.should == 6.0
-          @facet.intersection_at_z(6.0).start.z.should == 6.0
-        end
-        
-        it "should return a line with the correct end value" do
-          @facet.intersection_at_z(6.0).end.x.should == 6.0
-          @facet.intersection_at_z(6.0).end.y.should == 6.0
-          @facet.intersection_at_z(6.0).end.z.should == 6.0
-        end
-      end
-    end
-    
     context "with vertices in both positive and negative space" do
       before do
         @facet = Facet.parse(<<-EOD)
@@ -252,6 +206,28 @@ describe Facet do
       it "should return nil" do
         @facet.intersection_at_z(1.0).should == nil
       end
+    end
+  end
+  
+  describe "#translate!" do
+    before do
+      @facet = Facet.parse(<<-EOD)
+        facet normal 0.0 0.0 -1.0
+        outer loop
+        vertex -16.5 0.0 -0.75
+        vertex 0.0 -9.5 -0.75
+        vertex 0.0 0.0 -0.75
+        endloop
+        endfacet
+      EOD
+    end
+    
+    it "should call translate on each of it's Vertices" do
+      @facet.vertices[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      @facet.vertices[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      @facet.vertices[2].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      
+      @facet.translate!(16.5, 9.5, 0.75)
     end
   end
 end

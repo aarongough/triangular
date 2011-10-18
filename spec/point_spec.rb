@@ -64,4 +64,25 @@ describe Point do
       (Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.2)).should be_false
     end
   end
+  
+  describe "#translate!" do
+    before do
+      @point = Point.new(1.0, 1.0, 1.0)
+    end
+    
+    it "should add the supplied value to X" do
+      @point.translate!(16.5, 9.5, 0.75)
+      @point.x.should == 17.5
+    end
+    
+    it "should add the supplied value to Y" do
+      @point.translate!(16.5, 9.5, 0.75)
+      @point.y.should == 10.5
+    end
+    
+    it "should add the supplied value to Z" do
+      @point.translate!(16.5, 9.5, 0.75)
+      @point.z.should == 1.75
+    end
+  end
 end

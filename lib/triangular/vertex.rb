@@ -7,6 +7,7 @@ module Triangular
     def_delegator :@point, :x, :x
     def_delegator :@point, :y, :y
     def_delegator :@point, :z, :z
+    def_delegator :@point, :translate!, :translate!
     
     attr_accessor :point
     
