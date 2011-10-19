@@ -100,9 +100,9 @@ describe Line do
   describe "#to_svg_path" do 
     it "should return a string containing an SVG path" do
       line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0))
-      expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="1" />'
+      expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="0.005" />'
       
-      line.to_svg_path.should == expected_output
+      line.to_svg_path(:inches).should == expected_output
     end
   end
 end

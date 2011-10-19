@@ -1,11 +1,12 @@
 module Triangular
   class Solid
     
-    attr_accessor :name, :facets
+    attr_accessor :name, :facets, :units
     
     def initialize(name, *args)
       @name = name
       @facets = args
+      @units = units
     end
     
     def to_s

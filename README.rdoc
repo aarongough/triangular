@@ -15,8 +15,8 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
   solid.center!
   
   # Move the solid so it's aligned to positive side the origin (X0, Y0, Z0)...
-  # This ensure that all the coordinates in the model are positive for calculations that require that.
-  # Slicing benefits from this as it makes the output more useful
+  # This ensures that all the coordinates in the model are positive,
+  # slicing benefits from this as it makes the output more useful
   solid.align_to_origin!
   
   # Move the solid 1 unit in the positive Z direction

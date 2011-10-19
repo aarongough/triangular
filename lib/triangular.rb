@@ -4,6 +4,7 @@ require 'triangular/vector'
 require 'triangular/line'
 require 'triangular/polyline'
 require 'triangular/facet'
+require 'triangular/units'
 require 'triangular/solid'
 
 module Triangular

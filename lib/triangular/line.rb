@@ -31,8 +31,8 @@ module Triangular
       Point.new(x_intersect, y_intersect, z_plane)
     end
     
-    def to_svg_path
-      "<path d=\"M #{@start.x} #{@start.y} L #{@end.x} #{@end.y}\" fill=\"none\" stroke=\"black\" stroke-width=\"1\" />"
+    def to_svg_path(units)
+      "<path d=\"M #{@start.x} #{@start.y} L #{@end.x} #{@end.y}\" fill=\"none\" stroke=\"black\" stroke-width=\"#{Units.stroke_width(units)}\" />"
     end
   end
 end
