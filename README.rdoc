@@ -33,7 +33,7 @@ For ease of use the Triangular is packaged as a RubyGem. Providing you already h
 
 Author:: {Aaron Gough}[mailto:aaron@aarongough.com]
 
-Special thanks go out to {Alkas Baybas}[https://github.com/abaybas] for for lending me his massive brain!
+Special thanks go out to {Alkas Baybas}[https://github.com/abaybas] for lending me his massive brain!
 
 Copyright (c) 2011 {Aaron Gough}[http://thingsaaronmade.com/] ({thingsaaronmade.com}[http://thingsaaronmade.com/]), released under the MIT license
 
