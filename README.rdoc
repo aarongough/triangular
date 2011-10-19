@@ -32,7 +32,22 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
 
 For ease of use the Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
 
-  gem install triangular
+  gem install triangular'
+  
+=== Performance
+
+At the moment Triangular has not been optimized at all. The parser is a relatively naive one that was designed to be easy to read rather than performant. Once the feature-set of Triangular has stabilized I will be doing a pass over it in order to make it fast enough for production use. Right now it could definitely be improved.
+
+For example here is some information about run-times when processing a 51Mb STL file:
+
+  solid = Triangular.parse("big_file.stl")
+  # 65 seconds
+  
+  solid.align_to_origin!
+  # 8 seconds
+  
+  solid.slice_at_z(1.0)
+  # 2 seconds
 
 === Author & Credits
 
