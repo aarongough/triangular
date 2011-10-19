@@ -193,7 +193,7 @@ describe Solid do
         outer loop
         vertex 0.0 -1.87 5.0
         vertex 17.5 -1.87 11.0
-        vertex 0.0 1.87 6.0
+        vertex 0.0 1.5 6.0
         endloop
         endfacet
         endsolid y-axis-spacer
@@ -201,7 +201,7 @@ describe Solid do
     end
     
     it "should translate solid so the lowermost XYZ edges are all 0.0" do
-      @solid.should_receive(:translate!).with(-0.5, 3.815, -8.0)
+      @solid.should_receive(:translate!).with(-0.5, 4.0, -8.0)
       @solid.center!
     end
   end

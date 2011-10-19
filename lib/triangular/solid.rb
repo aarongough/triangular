@@ -53,6 +53,16 @@ module Triangular
       self.translate!(-bounds[0].x, -bounds[0].y, -bounds[0].z)
     end
     
+    def center!
+      bounds = self.get_bounds
+      
+      x_translation = ((bounds[1].x - bounds[0].x).abs / 2) + -bounds[1].x
+      y_translation = ((bounds[1].y - bounds[0].y).abs / 2) + -bounds[1].y
+      z_translation = ((bounds[1].z - bounds[0].z).abs / 2) + -bounds[1].z
+      
+      self.translate!(x_translation, y_translation, z_translation)
+    end
+    
     def slice_at_z(z_plane)
       lines = @facets.map {|facet| facet.intersection_at_z(z_plane) }
       lines.compact!
