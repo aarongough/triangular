@@ -11,13 +11,18 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
   # Open an STL file
   solid = Triangular.parse_file("test.stl")
   
-  # Move the model content so it's aligned to the origin (X0, Y0, Z0)
+  # Move the solid so it's centered on the origin (X0, Y0, Z0) in all axes
+  solid.center!
+  
+  # Move the solid so it's aligned to positive side the origin (X0, Y0, Z0)...
+  # This ensure that all the coordinates in the model are positive for calculations that require that.
+  # Slicing benefits from this as it makes the output more useful
   solid.align_to_origin!
   
-  # Move the model content 1 unit in the positive Z direction
+  # Move the solid 1 unit in the positive Z direction
   solid.translate!(0.0, 0.0, 1.0)
   
-  # Cut a section slice of the model at a Z height of 1.5 units
+  # Cut a section slice of the solid at a Z height of 1.5 units
   slice = solid.slice_at_z(1.5)
   
   # Create an SVG image of the slice for further manipulation
