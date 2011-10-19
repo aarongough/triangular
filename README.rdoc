@@ -16,8 +16,7 @@ Here's a quick code example using Triangular. This code:
 * Calculates the bounding box of the solid
 * Creates a section plane ('slice') through the solid on the XY plane
 * Saves the section plane as an SVG document, correctly scaled to match the solid
-  
-  
+
   
   require "rubygems"
   require "triangular"
