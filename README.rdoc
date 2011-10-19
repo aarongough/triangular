@@ -8,25 +8,32 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
 
 === A Quick Example
 
+Here's a quick code example of how to open an STL file, re-align it so it's coordinates are all in positive space, then cut a slice through it and save the slice outline as an SVG:
+  
+  require "rubygems"
+  require "triangular"
+
   # Open an STL file
   solid = Triangular.parse_file("test.stl")
   
-  # Move the solid so it's centered on the origin (X0, Y0, Z0) in all axes
-  solid.center!
-  
-  # Move the solid so it's aligned to positive side the origin (X0, Y0, Z0)...
-  # This ensures that all the coordinates in the model are positive,
-  # slicing benefits from this as it makes the output more useful
+  # Set the units of measurement that the solid uses
+  solid.units = :inches
+
+  # Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
   solid.align_to_origin!
   
-  # Move the solid 1 unit in the positive Z direction
-  solid.translate!(0.0, 0.0, 1.0)
+  # Get the bounding box of the solid
+  bounds = solid.get_bounds
+
+  # Get a section plane through the solid at a Z height of 0.7
+  polyline = solid.slice_at_z(0.7)
+
+  # Open a file for SVG output
+  File.open("slice.svg", "w+") do |file|
   
-  # Cut a section slice of the solid at a Z height of 1.5 units
-  slice = solid.slice_at_z(1.5)
-  
-  # Create an SVG image of the slice for further manipulation
-  svg = slice.to_svg
+    # Output the slice as an SVG document (correctly scaled according to the solid's units)
+    file.puts polyline.to_svg(bounds[1].x, bounds[1].y, solid.units)
+  end
 
 === Installation
 
