@@ -177,4 +177,32 @@ describe Solid do
       @solid.align_to_origin!
     end
   end
+  
+  describe "#center!" do
+    before do
+      @solid = Solid.parse(<<-EOD)
+        solid y-axis-spacer
+        facet normal 0.0 0.0 -1.0
+        outer loop
+        vertex -16.5 0.0 5.0
+        vertex 0.0 -9.5 10.0
+        vertex 0.0 0.0 5.0
+        endloop
+        endfacet
+        facet normal -0.0 1.0 0.0
+        outer loop
+        vertex 0.0 -1.87 5.0
+        vertex 17.5 -1.87 11.0
+        vertex 0.0 1.87 6.0
+        endloop
+        endfacet
+        endsolid y-axis-spacer
+      EOD
+    end
+    
+    it "should translate solid so the lowermost XYZ edges are all 0.0" do
+      @solid.should_receive(:translate!).with(-0.5, 3.815, -8.0)
+      @solid.center!
+    end
+  end
 end
