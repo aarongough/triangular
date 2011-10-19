@@ -7,24 +7,14 @@ The main purpose of Triangular is to enable its users to quickly create new soft
 Please note that Triangular requires Ruby 1.9+. Triangular is currently in the Alpha stage of development which means that the API can and will change, and that new features will be added often!
 
 === A Quick Example
-
-Here's a quick code example using Triangular. This code:
-
-* Opens and parses an STL file
-* Sets the units of measurement for the resulting solid to inches
-* Moves the solid so that all of it's coordinates are in positive space (ie: greater than 0)
-* Calculates the bounding box of the solid
-* Creates a section plane ('slice') through the solid on the XY plane
-* Saves the section plane as an SVG document, correctly scaled to match the solid
-
   
   require "rubygems"
   require "triangular"
 
-  # Open an STL file
+  # Open and parse an STL file
   solid = Triangular.parse_file("test.stl")
   
-  # Set the units of measurement that the solid uses
+  # Set the units of measurement for the resulting solid to inches
   solid.units = :inches
 
   # Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
@@ -33,14 +23,14 @@ Here's a quick code example using Triangular. This code:
   # Get the bounding box of the solid
   bounds = solid.get_bounds
 
-  # Get a section plane through the solid at a Z height of 0.7
-  polyline = solid.slice_at_z(0.7)
+  # Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
+  slice = solid.slice_at_z(0.7)
 
   # Open a file for SVG output
   File.open("slice.svg", "w+") do |file|
   
     # Output the slice as an SVG document (correctly scaled according to the solid's units)
-    file.puts polyline.to_svg(bounds[1].x, bounds[1].y, solid.units)
+    file.puts slice.to_svg(bounds[1].x, bounds[1].y, solid.units)
   end
 
 === Installation
