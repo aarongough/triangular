@@ -8,7 +8,14 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
 
 === A Quick Example
 
-Here's a quick code example of how to open an STL file, re-align it so it's coordinates are all in positive space, then cut a slice through it and save the slice outline as an SVG:
+Here's a quick code example using Triangular. This code:
+
+* Opens and parses an STL file
+* Sets the units of measurement for the resulting solid to inches
+* Moves the solid so that all of it's coordinates are in positive space (ie: greater than 0)
+* Calculates the bounding box of the solid
+* Creates a section plane ('slice') through the solid on the XY plane
+* Saves the section plane as an SVG document, correctly scaled to match the solid
   
   require "rubygems"
   require "triangular"
@@ -39,7 +46,7 @@ Here's a quick code example of how to open an STL file, re-align it so it's coor
 
 For ease of use the Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
 
-  gem install triangular'
+  gem install triangular
   
 === Performance
 
