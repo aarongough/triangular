@@ -26,7 +26,7 @@ describe Ray do
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == Point.new(0.5, 0.5, 1.2)
+        @ray.intersection(facet).should == Point.new(1.0, 1.0, 1.2)
       end
     end
     
@@ -44,17 +44,17 @@ describe Ray do
     
     context "with compound angled facet that intersects the Ray" do
       before do
-        @ray = Ray.new(1.0, 1.0)
+        @ray = Ray.new(0.5, 0.5)
       end
       
       it "should return Point that represents intersection" do
         vertex1 = Vertex.new(0.0, 0.0, 0.0)
         vertex2 = Vertex.new(2.0, 0.0, 1.0)
-        vertex3 = Vertex.new(2.0, 2.0, 2.0)
+        vertex3 = Vertex.new(0.0, 2.0, 2.0)
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == Point.new(1.0, 1.0, 1.5)
+        @ray.intersection(facet).should == Point.new(0.5, 0.5, 0.75)
       end
     end
   end
