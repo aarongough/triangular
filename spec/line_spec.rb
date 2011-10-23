@@ -173,6 +173,92 @@ describe Line do
     end
   end
   
+  describe "#intersects_y?" do 
+    context "for a line that intersects the target Y plane" do
+      context "with a positive Y vector" do
+        before do
+          @line = Line.new(Vertex.new(0.0, 2.0, 0.0), Vertex.new(0.0, 3.1, 6.0))
+        end
+        
+        it "should return true" do
+          @line.intersects_y?(3.0).should be_true
+        end
+      end
+      
+      context "with a negative Y vector" do
+        before do
+          @line = Line.new(Vertex.new(0.0, 3.1, 6.0), Vertex.new(0.0, 2.0, 0.0))
+        end
+        
+        it "should return true" do
+          @line.intersects_y?(3.0).should be_true
+        end
+      end
+    end
+    
+    context "for a line that does not intersect the target Y plane" do
+      before do
+        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+      end
+      
+      it "should return false" do
+        @line.intersects_y?(3.0).should be_false
+      end
+    end
+  end
+  
+  describe "#intersection_at_y" do
+    context "for a line that intersects the target Y plane" do
+      context "and spans both positive and negative space" do
+        context "with a positive Y vector" do
+          before do
+            @line = Line.new(Vertex.new(2.0, -1.0, 1.0), Vertex.new(2.0, 1.0, -1.0))
+          end
+          
+          it "should return a Point representing the intersection" do
+            @line.intersection_at_y(0).x.should == 2.0
+            @line.intersection_at_y(0).y.should == 0.0
+            @line.intersection_at_y(0).z.should == 0.0
+          end
+        end
+        
+        context "with a negative Y vector" do
+          before do
+            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
+          end
+          
+          it "should return a Point representing the intersection" do
+            @line.intersection_at_y(0).x.should == 0
+            @line.intersection_at_y(0).y.should == 0
+            @line.intersection_at_y(0).z.should == 0
+          end
+        end
+      end
+    end
+      
+    context "for a line that lies on the target Y plane" do
+      before do
+        @line = Line.new(Vertex.new(3.0, 3.0, 3.0), Vertex.new(3.0, 3.0, 6.0))
+      end
+      
+      it "should raise an error" do
+        lambda{
+          @line.intersection_at_y(3.0)
+        }.should raise_error
+      end
+    end
+    
+    context "for a line that does not intersect the target Y plane" do
+      before do
+        @line = Line.new(Vertex.new(4.0, 4.0, 4.0), Vertex.new(6.0, 6.0, 6.0))
+      end
+      
+      it "should return nil" do
+        @line.intersection_at_y(3.0).should be_nil
+      end
+    end
+  end
+  
   describe "==" do
     it "should return true when the two lines are identical" do
       (Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_true
