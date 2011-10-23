@@ -70,9 +70,7 @@ describe Line do
       end
       
       it "should raise an error" do
-        lambda{
-          @line.intersection_at_z(3.0)
-        }.should raise_error
+        @line.intersection_at_z(3.0).should == nil
       end
     end
     
@@ -156,9 +154,7 @@ describe Line do
       end
       
       it "should raise an error" do
-        lambda{
-          @line.intersection_at_x(3.0)
-        }.should raise_error
+        @line.intersection_at_x(3.0).should == nil
       end
     end
     
@@ -242,9 +238,7 @@ describe Line do
       end
       
       it "should raise an error" do
-        lambda{
-          @line.intersection_at_y(3.0)
-        }.should raise_error
+        @line.intersection_at_y(3.0).should == nil
       end
     end
     

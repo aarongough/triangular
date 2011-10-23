@@ -33,7 +33,7 @@ module Triangular
       
       intersection_points = []
       lines.each do |line|
-        intersection_points << line.intersection_at_z(z_plane) unless line.start.z == z_plane && line.end.z == z_plane
+        intersection_points << line.intersection_at_z(z_plane)
       end
       
       intersection_points.compact!

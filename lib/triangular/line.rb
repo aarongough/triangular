@@ -23,7 +23,7 @@ module Triangular
     
     def intersection_at_x(x_plane)
       return nil if !self.intersects_x?(x_plane)
-      raise "Cannot calculate intersection for line that lies on the target X plane" if @start.x == x_plane && @end.x == x_plane
+      return nil if @start.x == x_plane && @end.x == x_plane
       
       y_intersect = (@end.y - @start.y) / (@end.x - @start.x) * (x_plane - @start.x) + @start.y
       z_intersect = (@end.z - @start.z) / (@end.x - @start.x) * (x_plane - @start.x) + @start.z
@@ -41,7 +41,7 @@ module Triangular
     
     def intersection_at_y(y_plane)
       return nil if !self.intersects_y?(y_plane)
-      raise "Cannot calculate intersection for line that lies on the target Y plane" if @start.y == y_plane && @end.y == y_plane
+      return nil if @start.y == y_plane && @end.y == y_plane
       
       x_intersect = (@end.x - @start.x) / (@end.y - @start.y) * (y_plane - @start.y) + @start.x
       z_intersect = (@end.z - @start.z) / (@end.y - @start.y) * (y_plane - @start.y) + @start.z
@@ -59,7 +59,7 @@ module Triangular
     
     def intersection_at_z(z_plane)
       return nil if !self.intersects_z?(z_plane)
-      raise "Cannot calculate intersection for line that lies on the target Z plane" if @start.z == z_plane && @end.z == z_plane
+      return nil if @start.z == z_plane && @end.z == z_plane
       
       x_intersect = (@end.x - @start.x) / (@end.z - @start.z) * (z_plane - @start.z) + @start.x
       y_intersect = (@end.y - @start.y) / (@end.z - @start.z) * (z_plane - @start.z) + @start.y
