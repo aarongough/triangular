@@ -6,6 +6,7 @@ require 'triangular/polyline'
 require 'triangular/facet'
 require 'triangular/units'
 require 'triangular/solid'
+require 'triangular/ray'
 
 module Triangular
   def self.parse(string)
