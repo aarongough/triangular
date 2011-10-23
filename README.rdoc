@@ -35,7 +35,7 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
 
 === Installation
 
-For ease of use the Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
+For ease of use Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
 
   gem install triangular
   
