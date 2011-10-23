@@ -87,6 +87,40 @@ describe Line do
     end
   end
   
+  describe "#intersects_x?" do 
+    context "for a line that intersects the target X plane" do
+      context "with a positive X vector" do
+        before do
+          @line = Line.new(Vertex.new(2.0, 0.0, 0.0), Vertex.new(3.2, 0.0, 6.0))
+        end
+        
+        it "should return true" do
+          @line.intersects_x?(3.0).should be_true
+        end
+      end
+      
+      context "with a negative X vector" do
+        before do
+          @line = Line.new(Vertex.new(3.2, 0.0, 6.0), Vertex.new(2.0, 0.0, 0.0))
+        end
+        
+        it "should return true" do
+          @line.intersects_x?(3.0).should be_true
+        end
+      end
+    end
+    
+    context "for a line that does not intersect the target X plane" do
+      before do
+        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+      end
+      
+      it "should return false" do
+        @line.intersects_x?(3.0).should be_false
+      end
+    end
+  end
+  
   describe "#intersection_at_x" do
     context "for a line that intersects the target X plane" do
       context "and spans both positive and negative space" do
