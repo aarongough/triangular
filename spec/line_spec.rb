@@ -87,6 +87,58 @@ describe Line do
     end
   end
   
+  describe "#intersection_at_x" do
+    context "for a line that intersects the target X plane" do
+      context "and spans both positive and negative space" do
+        context "with a positive X vector" do
+          before do
+            @line = Line.new(Vertex.new(-1.0, 2.0, 1.0), Vertex.new(1.0, 2.0, -1.0))
+          end
+          
+          it "should return a Point representing the intersection" do
+            @line.intersection_at_x(0).x.should == 0.0
+            @line.intersection_at_x(0).y.should == 2.0
+            @line.intersection_at_x(0).z.should == 0.0
+          end
+        end
+        
+        context "with a negative X vector" do
+          before do
+            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
+          end
+          
+          it "should return a Point representing the intersection" do
+            @line.intersection_at_x(0).x.should == 0
+            @line.intersection_at_x(0).y.should == 0
+            @line.intersection_at_x(0).z.should == 0
+          end
+        end
+      end
+    end
+      
+    context "for a line that lies on the target X plane" do
+      before do
+        @line = Line.new(Vertex.new(3.0, 0.0, 3.0), Vertex.new(3.0, 6.0, 6.0))
+      end
+      
+      it "should raise an error" do
+        lambda{
+          @line.intersection_at_x(3.0)
+        }.should raise_error
+      end
+    end
+    
+    context "for a line that does not intersect the target X plane" do
+      before do
+        @line = Line.new(Vertex.new(4.0, 0.0, 4.0), Vertex.new(6.0, 0.0, 6.0))
+      end
+      
+      it "should return nil" do
+        @line.intersection_at_x(3.0).should be_nil
+      end
+    end
+  end
+  
   describe "==" do
     it "should return true when the two lines are identical" do
       (Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_true
