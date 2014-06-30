@@ -1,10 +1,12 @@
 require 'spec_helper'
 
-describe Facet do
+RSpec.describe Facet do
   describe ".parse" do
+    subject { described_class.parse text }
+
     context "with a correctly formatted facet" do
-      before do
-        @result = Facet.parse(<<-EOD)
+      let(:text) do
+        <<-EOD
           facet normal 0.0 0.0 -1.0
           outer loop
           vertex 16.5 0.0 -0.75
@@ -16,51 +18,51 @@ describe Facet do
       end
       
       it "should return a facet object" do
-        @result.should be_a Facet
+        should be_a Facet
       end
       
-      it "should return a facet with 3 vertices" do
-        @result.vertices.length.should == 3
+      specify "should return a facet with 3 vertices" do
+        expect(subject.vertices.length).to eq 3
       end
       
-      it "should return a facet with vertices of type Vertex" do
-        @result.vertices.each do |vertex|
-          vertex.should be_a Vertex
+      specify "should return a facet with vertices of type Vertex" do
+        subject.vertices.each do |vertex|
+          expect(vertex).to be_a Vertex
         end
       end
       
-      it "should return a facet with a normal of type Vector" do
-        @result.normal.should be_a Vector
+      specify "should return a facet with a normal of type Vector" do
+        expect(subject.normal).to be_a Vector
       end
       
-      it "should correctly set the normal values" do
-        @result.normal.x.should == 0
-        @result.normal.y.should == 0
-        @result.normal.z.should == -1
+      specify "should correctly set the normal values" do
+        expect(subject.normal.x).to eq 0
+        expect(subject.normal.y).to eq 0
+        expect(subject.normal.z).to eq -1
       end
       
-      it "should correctly set the values for the first vertex" do
-        @result.vertices[0].x.should == 16.5
-        @result.vertices[0].y.should == 0
-        @result.vertices[0].z.should == -0.75
+      specify "should correctly set the values for the first vertex" do
+        expect(subject.vertices[0].x).to eq 16.5
+        expect(subject.vertices[0].y).to eq 0
+        expect(subject.vertices[0].z).to eq -0.75
       end
       
-      it "should correctly set the values for the second vertex" do
-        @result.vertices[1].x.should == 0
-        @result.vertices[1].y.should == -9.5
-        @result.vertices[1].z.should == -0.75
+      specify "should correctly set the values for the second vertex" do
+        expect(subject.vertices[1].x).to eq 0
+        expect(subject.vertices[1].y).to eq -9.5
+        expect(subject.vertices[1].z).to eq -0.75
       end
       
-      it "should correctly set the values for the third vertex" do
-        @result.vertices[2].x.should == 0
-        @result.vertices[2].y.should == 0
-        @result.vertices[2].z.should == -0.75
+      specify "should correctly set the values for the third vertex" do
+        expect(subject.vertices[2].x).to eq 0
+        expect(subject.vertices[2].y).to eq 0
+        expect(subject.vertices[2].z).to eq -0.75
       end
     end
     
     context "when passed multiple facets" do
-      before do
-        @result = Facet.parse(<<-EOD)
+      let(:text) do
+        <<-EOD
           facet normal 0.0 0.0 -1.0
           outer loop
           vertex 16.5 0.0 -0.75
@@ -77,86 +79,94 @@ describe Facet do
           endfacet
         EOD
       end
-      
-      it "should return multiple facet objects" do
-        @result.should be_a Array
-        @result.each do |item|
-          item.should be_a Facet
+
+      specify "should return multiple facet objects" do
+        expect(subject).to be_a Array
+        subject.each do |item|
+          expect(item).to be_a Facet
         end
       end
     end
   end
   
   describe "#to_s" do
-    it "should return the string representation for a facet" do
+    subject { instance.to_s }
+
+    let(:instance) do
       facet = Facet.new
       facet.normal = Vector.new(0, 0, 1)
       facet.vertices << Point.new(1, 2, 3)
       facet.vertices << Point.new(1, 2, 3)
       facet.vertices << Point.new(1, 2, 3)
-      
+      facet
+    end
+
+    let(:expected_string) do
       expected_string  = "facet normal 0.0 0.0 1.0\n"
       expected_string += "outer loop\n"
-      expected_string += facet.vertices[0].to_s + "\n"
-      expected_string += facet.vertices[1].to_s + "\n"
-      expected_string += facet.vertices[2].to_s + "\n"
+      expected_string += instance.vertices[0].to_s + "\n"
+      expected_string += instance.vertices[1].to_s + "\n"
+      expected_string += instance.vertices[2].to_s + "\n"
       expected_string += "endloop\n"
       expected_string += "endfacet\n"
-      
-      facet.to_s.should == expected_string
+      expected_string
     end
+
+    it { should eq expected_string }
   end
   
   describe "#intersection_at_z" do
+    subject { instance.intersection_at_z value }
+
     context "for a facet that intersects the target Z plane" do
-      before do
+      let(:instance) do
         vertex1 = Vertex.new(0.0, 0.0, 0.0)
         vertex2 = Vertex.new(0.0, 0.0, 6.0)
         vertex3 = Vertex.new(6.0, 0.0, 6.0)
-        
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+
+        Facet.new(nil, vertex1, vertex2, vertex3)
       end
-      
+
       context "when the target Z plane is 3.0" do
-        it "should return a line object" do
-          @facet.intersection_at_z(3.0).should be_a Line
+        let(:value) { 3.0 }
+
+        it { should be_a Line }
+
+        specify "should return a line wspecifyh the correct start value" do
+          expect(subject.start.x).to eq 0.0
+          expect(subject.start.y).to eq 0.0
+          expect(subject.start.z).to eq 3.0
         end
-        
-        it "should return a line with the correct start value" do
-          @facet.intersection_at_z(3.0).start.x.should == 0.0
-          @facet.intersection_at_z(3.0).start.y.should == 0.0
-          @facet.intersection_at_z(3.0).start.z.should == 3.0
-        end
-        
-        it "should return a line with the correct end value" do
-          @facet.intersection_at_z(3.0).end.x.should == 3.0
-          @facet.intersection_at_z(3.0).end.y.should == 0.0
-          @facet.intersection_at_z(3.0).end.z.should == 3.0
+
+        specify "should return a line wspecifyh the correct end value" do
+          expect(subject.end.x).to eq 3.0
+          expect(subject.end.y).to eq 0.0
+          expect(subject.end.z).to eq 3.0
         end
       end
-      
+
       context "when the target Z plane is 6.0" do
-        it "should return a line object" do
-          @facet.intersection_at_z(6.0).should be_a Line
+        let(:value) { 6.0 }
+
+        it { should be_a Line }
+
+        specify "should return a line wspecifyh the correct start value" do
+          expect(subject.start.x).to eq 0.0
+          expect(subject.start.y).to eq 0.0
+          expect(subject.start.z).to eq 6.0
         end
-        
-        it "should return a line with the correct start value" do
-          @facet.intersection_at_z(6.0).start.x.should == 0.0
-          @facet.intersection_at_z(6.0).start.y.should == 0.0
-          @facet.intersection_at_z(6.0).start.z.should == 6.0
-        end
-        
-        it "should return a line with the correct end value" do
-          @facet.intersection_at_z(6.0).end.x.should == 6.0
-          @facet.intersection_at_z(6.0).end.y.should == 0.0
-          @facet.intersection_at_z(6.0).end.z.should == 6.0
+
+        specify "should return a line wspecifyh the correct end value" do
+          expect(subject.end.x).to eq 6.0
+          expect(subject.end.y).to eq 0.0
+          expect(subject.end.z).to eq 6.0
         end
       end
     end
     
     context "with vertices in both positive and negative space" do
-      before do
-        @facet = Facet.parse(<<-EOD)
+      let(:instance) do
+        Facet.parse(<<-EOD)
           facet normal -0.0 1.0 -0.0
           outer loop
           vertex -1.0 1.0 1.0
@@ -166,52 +176,54 @@ describe Facet do
           endfacet
         EOD
       end
-      
-      it "should return a line with the correct start value" do
-        @facet.intersection_at_z(0.0).start.x.should == 0.0
-        @facet.intersection_at_z(0.0).start.y.should == 1.0
-        @facet.intersection_at_z(0.0).start.z.should == 0.0
+
+      let(:value) { 0.0 }
+
+      specify "should return a line wspecifyh the correct start value" do
+        expect(subject.start.x).to eq 0.0
+        expect(subject.start.y).to eq 1.0
+        expect(subject.start.z).to eq 0.0
       end
-      
-      it "should return a line with the correct end value" do
-        @facet.intersection_at_z(0.0).end.x.should == -1.0
-        @facet.intersection_at_z(0.0).end.y.should == 1.0
-        @facet.intersection_at_z(0.0).end.z.should == 0.0
+
+      specify "should return a line wspecifyh the correct end value" do
+        expect(subject.end.x).to eq -1.0
+        expect(subject.end.y).to eq 1.0
+        expect(subject.end.z).to eq 0.0
       end
     end
     
     context "for a facet that lies on the target Z plane" do
-      before do
+      let(:instance) do
         vertex1 = Vertex.new(0.0, 0.0, 1.0)
         vertex2 = Vertex.new(2.0, 0.0, 1.0)
         vertex3 = Vertex.new(2.0, 2.0, 1.0)
         
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+        Facet.new(nil, vertex1, vertex2, vertex3)
       end
-      
-      it "should return nil" do
-        @facet.intersection_at_z(1.0).should == nil
-      end
+
+      let(:value) { 1.0 }
+
+      it { should be_nil }
     end
-    
+
     context "for a facet that does not intersect the target Z plane" do
-      before do
+      let(:instance) do
         vertex1 = Vertex.new(0.0, 0.0, 0.0)
         vertex2 = Vertex.new(2.0, 0.0, 0.0)
         vertex3 = Vertex.new(2.0, 2.0, 0.0)
-        
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+
+        Facet.new(nil, vertex1, vertex2, vertex3)
       end
       
-      it "should return nil" do
-        @facet.intersection_at_z(1.0).should == nil
-      end
+      let(:value) { 1.0 }
+
+      it { should be_nil }
     end
   end
   
   describe "#translate!" do
-    before do
-      @facet = Facet.parse(<<-EOD)
+    let(:instance) do
+      Facet.parse(<<-EOD)
         facet normal 0.0 0.0 -1.0
         outer loop
         vertex -16.5 0.0 -0.75
@@ -222,12 +234,12 @@ describe Facet do
       EOD
     end
     
-    it "should call translate on each of it's Vertices" do
-      @facet.vertices[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @facet.vertices[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @facet.vertices[2].should_receive(:translate!).with(16.5, 9.5, 0.75)
+    specify "should call translate on each of it's Vertices" do
+      expect(instance.vertices[0]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(instance.vertices[1]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(instance.vertices[2]).to receive(:translate!).with(16.5, 9.5, 0.75)
       
-      @facet.translate!(16.5, 9.5, 0.75)
+      instance.translate!(16.5, 9.5, 0.75)
     end
   end
 end

@@ -1,10 +1,12 @@
 require 'spec_helper'
 
-describe Solid do
+RSpec.describe Solid do
   describe ".parse" do
+    subject { described_class.parse text }
+
     context "with a correctly formatted solid" do
-      before do
-        @result = Solid.parse(<<-EOD)
+      let(:text) do
+        <<-EOD
           solid y-axis-spacer
           facet normal 0.0 0.0 -1.0
           outer loop
@@ -24,29 +26,35 @@ describe Solid do
           
         EOD
       end
-      
+
       it "should return a Solid" do
-        @result.should be_a Solid
+        should be_a Solid
+      end
+
+      specify "should correctly set the name parameter" do
+        expect(subject.name).to eq "y-axis-spacer"
+      end
+
+      specify "should retun a Solid that has two Facets" do
+        expect(subject.facets.length).to eq 2
       end
       
-      it "should correctly set the name parameter" do
-        @result.name.should == "y-axis-spacer"
-      end
-      
-      it "should retun a Solid that has two Facets" do
-        @result.facets.length.should == 2
-      end
-      
-      it "should return a Solid that has facets of type Facet" do
-        @result.facets.each do |facet|
-          facet.should be_a Facet
+      specify "should return a Solid that has facets of type Facet" do
+        subject.facets.each do |facet|
+          expect(facet).to be_a Facet
         end
       end
     end
   end
   
   describe "#to_s" do
-    it "should output a string representation exactly the same as the input" do
+    subject { instance.to_s }
+
+    let(:instance) do
+      described_class.parse input
+    end
+
+    let(:input) do
       input  = "solid y-axis-spacer\n"
       input += "facet normal 0.0 0.0 -1.0\n"
       input += "outer loop\n"
@@ -63,27 +71,28 @@ describe Solid do
       input += "endloop\n"
       input += "endfacet\n"
       input += "endsolid y-axis-spacer\n"
-      
-      solid = Solid.parse(input)
-      output = solid.to_s
-      
-      output.should == input
-    end
-  end
-  
-  describe "#slice_at_z" do
-    before do
-      @solid = Solid.parse(File.open("#{File.dirname(__FILE__)}/fixtures/test_cube.stl").read)
+      input
     end
 
+    it "should output a string representation exactly the same as the input" do
+      should eq input
+    end
+  end
+
+  describe "#slice_at_z" do
+    subject { instance.slice_at_z 0 }
+    let(:instance) { Solid.parse(File.open("#{File.dirname(__FILE__)}/fixtures/test_cube.stl").read) }
+
     it "should return a Polyline" do
-      @solid.slice_at_z(0).should be_a Polyline
+      should be_a Polyline
     end
   end
   
   describe "#get_bounds" do
-    before do
-      @solid = Solid.parse(<<-EOD)
+    subject { instance.get_bounds }
+
+    let(:instance) do
+      Solid.parse(<<-EOD)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -104,25 +113,25 @@ describe Solid do
     end
     
     it "should return an array" do
-      @solid.get_bounds.should be_a Array
+      should be_a Array
     end
-    
-    it "should return a point with the smallest bounds" do
-      @solid.get_bounds[0].x.should == -16.5
-      @solid.get_bounds[0].y.should == -9.5
-      @solid.get_bounds[0].z.should == -0.75
+
+    specify "should return a point wspecifyh the smallest bounds" do
+      expect(subject[0].x).to eq -16.5
+      expect(subject[0].y).to eq -9.5
+      expect(subject[0].z).to eq -0.75
     end
-    
-    it "should return a point with the largest bounds" do
-      @solid.get_bounds[1].x.should == 16.5
-      @solid.get_bounds[1].y.should == 1.87
-      @solid.get_bounds[1].z.should == 0.0
+
+    specify "should return a point wspecifyh the largest bounds" do
+      expect(subject[1].x).to eq 16.5
+      expect(subject[1].y).to eq 1.87
+      expect(subject[1].z).to eq 0.0
     end
   end
-  
+
   describe "#translate!" do
-    before do
-      @solid = Solid.parse(<<-EOD)
+    let(:instance) do
+      Solid.parse(<<-EOD)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -142,17 +151,17 @@ describe Solid do
       EOD
     end
     
-    it "should call translate on each of it's Facets" do
-      @solid.facets[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @solid.facets[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      
-      @solid.translate!(16.5, 9.5, 0.75)
+    specify "should call translate on each of it's Facets" do
+      expect(instance.facets[0]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(instance.facets[1]).to receive(:translate!).with(16.5, 9.5, 0.75)
+
+      instance.translate!(16.5, 9.5, 0.75)
     end
   end
   
   describe "#align_to_origin!" do
-    before do
-      @solid = Solid.parse(<<-EOD)
+    let(:instance) do
+      Solid.parse(<<-EOD)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -171,16 +180,16 @@ describe Solid do
         endsolid y-axis-spacer
       EOD
     end
-    
-    it "should translate solid so the lowermost XYZ edges are all 0.0" do
-      @solid.should_receive(:translate!).with(16.5, 9.5, -5.0)
-      @solid.align_to_origin!
+
+    specify "should translate solid so the lowermost XYZ edges are all 0.0" do
+      expect(instance).to receive(:translate!).with(16.5, 9.5, -5.0)
+      instance.align_to_origin!
     end
   end
   
   describe "#center!" do
-    before do
-      @solid = Solid.parse(<<-EOD)
+    let(:instance) do
+      Solid.parse(<<-EOD)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -200,9 +209,9 @@ describe Solid do
       EOD
     end
     
-    it "should translate solid so the lowermost XYZ edges are all 0.0" do
-      @solid.should_receive(:translate!).with(-0.5, 4.0, -8.0)
-      @solid.center!
+    specify "should translate solid so the lowermost XYZ edges are all 0.0" do
+      expect(instance).to receive(:translate!).with(-0.5, 4.0, -8.0)
+      instance.center!
     end
   end
 end

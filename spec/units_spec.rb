@@ -1,75 +1,90 @@
 require 'spec_helper'
 
-describe Units do
+RSpec.describe Units do
   describe ".name" do
-    it "should return 'inches' for :inches" do
-      Units.name(:inches).should == 'inches'
+    subject { described_class.name input }
+
+    context "when input :inches" do
+      let(:input) { :inches }
+      it { should eq 'inches' }
     end
-    
-    it "should return 'centimeters' for :centimeters" do
-      Units.name(:centimeters).should == 'centimeters'
+
+    context "when input :centimeters" do
+      let(:input) { :centimeters }
+      it { should eq 'centimeters' }
     end
-    
-    it "should return 'millimeters' for :millimeters" do
-      Units.name(:millimeters).should == 'millimeters'
+
+    context "when input :millimeters" do
+      let(:input) { :millimeters }
+      it { should eq 'millimeters' }
     end
-    
-    it "should return 'none' for :none" do
-      Units.name(:none).should == 'none'
+
+    context "when input :none" do
+      let(:input) { :none }
+      it { should eq 'none' }
     end
-    
-    it "should raise an exception if called with an unknown unit" do
-      lambda {
-        Units.name(:error)
-      }.should raise_error
+
+    context "if called with an unknown unit" do
+      let(:input) { :error }
+      specify { expect { subject }.to raise_error }
     end
   end
   
   describe ".svg_name" do
-    it "should return 'in' for :inches" do
-      Units.svg_name(:inches).should == 'in'
+    subject { described_class.svg_name input }
+
+    context "when input :inches" do
+      let(:input) { :inches }
+      it { should eq 'in' }
+    end
+
+    context "when input :centimeters" do
+      let(:input) { :centimeters }
+      it { should eq 'cm' }
+    end
+
+    context "when input :millimeters" do
+      let(:input) { :millimeters }
+      it { should eq 'mm' }
+    end
+
+    context "when input :none" do
+      let(:input) { :none }
+      it { should eq '' }
     end
     
-    it "should return 'cm' for :centimeters" do
-      Units.svg_name(:centimeters).should == 'cm'
-    end
-    
-    it "should return 'mm' for :millimeters" do
-      Units.svg_name(:millimeters).should == 'mm'
-    end
-    
-    it "should return '' for :none" do
-      Units.svg_name(:none).should == ''
-    end
-    
-    it "should raise an exception if called with an unknown unit" do
-      lambda {
-        Units.svg_name(:error)
-      }.should raise_error
+    context "if called with an unknown unit" do
+      let(:input) { :error }
+      specify { expect { subject }.to raise_error }
     end
   end
   
   describe ".stroke_width" do
-    it "should return 'in' for :inches" do
-      Units.stroke_width(:inches).should == 0.005
+    subject { described_class.stroke_width input }
+
+    context "when input :inches" do
+      let(:input) { :inches }
+      it { should eq 0.005 }
     end
-    
-    it "should return 'cm' for :centimeters" do
-      Units.stroke_width(:centimeters).should == 0.01
+
+    context "when input :centimeters" do
+      let(:input) { :centimeters }
+      it { should eq 0.01 }
     end
-    
-    it "should return 'mm' for :millimeters" do
-      Units.stroke_width(:millimeters).should == 0.1
+
+    context "when input :millimeters" do
+      let(:input) { :millimeters }
+      it { should eq 0.1 }
     end
-    
-    it "should return '' for :none" do
-      Units.stroke_width(:none).should == 0.1
+
+    context "when input :none" do
+      let(:input) { :none }
+      it { should eq 0.1 }
     end
-    
-    it "should raise an exception if called with an unknown unit" do
-      lambda {
-        Units.stroke_width(:error)
-      }.should raise_error
+
+    context "if called with an unknown unit" do
+      let(:input) { :error }
+      specify { expect { subject }.to raise_error }
     end
   end
 end
