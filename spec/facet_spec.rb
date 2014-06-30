@@ -242,4 +242,28 @@ RSpec.describe Facet do
       instance.translate!(16.5, 9.5, 0.75)
     end
   end
+
+  describe "#to_inc" do
+    subject { instance.to_inc }
+
+    let(:instance) do
+      vertex1 = Vertex.new(0.0, 0.0, 0.0)
+      vertex2 = Vertex.new(2.0, 0.0, 0.0)
+      vertex3 = Vertex.new(2.0, 2.0, 0.0)
+
+      Facet.new(nil, vertex1, vertex2, vertex3)
+    end
+
+    let(:inc_text) do
+      <<-EOT
+triangle {
+  <0.0, 0.0, 0.0>,
+  <2.0, 0.0, 0.0>,
+  <2.0, 2.0, 0.0>
+}
+      EOT
+    end
+
+    it { should eq inc_text }
+  end
 end

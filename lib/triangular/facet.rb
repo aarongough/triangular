@@ -84,4 +84,16 @@ module Triangular
       /x
     end
   end
+
+  def to_inc
+    lines = ['triangle {']
+    vertices.each.with_index do |v, i|
+      text = "<#{v.x}, #{v.y}, #{v.z}>"
+      text = "  " + text
+      text << ',' unless i == vertices.length - 1
+      lines << text
+    end
+    lines << '}'
+    lines.join("\n") + "\n"
+  end
 end
