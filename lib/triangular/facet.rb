@@ -83,18 +83,18 @@ module Triangular
       \s* endfacet\s
       /x
     end
-  end
 
-  def to_inc
-    lines = ['triangle {']
-    vertices.each.with_index do |v, i|
-      text = "<#{v.x}, #{v.y}, #{v.z}>"
-      text = " " * 2 + text
-      text << ',' unless i == vertices.length - 1
-      lines << text
+    def to_inc
+      lines = ['triangle {']
+      vertices.each.with_index do |v, i|
+        text = "<#{v.x}, #{v.y}, #{v.z}>"
+        text = " " * 2 + text
+        text << ',' unless i == vertices.length - 1
+        lines << text
+      end
+      lines << '}'
+      yield lines if block_given?
+      lines.join("\n")
     end
-    lines << '}'
-    yield lines if block_given?
-    lines.join("\n")
   end
 end
