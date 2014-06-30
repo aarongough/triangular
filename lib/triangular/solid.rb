@@ -88,6 +88,19 @@ module Triangular
       solid
     end
 
+    def self.parse_binary(string)
+      facets_count = string.unpack('C80L1').last
+      solid = new 'm_0'
+      string.unpack('C80L1' + 'f12S1' * facets_count)[81..-1].each_slice(13) do |fs|
+        facet = Facet.new
+        fs[3..-2].each_slice(3) do |x, y, z|
+          facet.vertices << Vertex.new(x, y, z)
+        end
+        solid.facets << facet
+      end
+      solid
+    end
+
     def to_inc
       lines = ["# declare #{inc_name} = mesh {"]
       facets.each do |f|

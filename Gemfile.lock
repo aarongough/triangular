@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     triangular (0.0.2)
+      ptools
 
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.5)
+    ptools (1.2.4)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)

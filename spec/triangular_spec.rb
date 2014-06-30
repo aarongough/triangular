@@ -23,5 +23,14 @@ RSpec.describe Triangular do
     specify 'should has the right content' do
       expect(subject.to_s).to eq file.read
     end
+
+    context "when file is in binary" do
+      let(:file) { File.open(File.expand_path("#{File.dirname(__FILE__)}/fixtures/test_binary_cube.stl")) }
+      it { should be_a Solid }
+
+      specify "should have 12 facets" do
+        expect(subject.facets.length).to eq 12
+      end
+    end
   end
 end
