@@ -15,7 +15,7 @@ module Triangular
         output << "facet normal #{facet.normal.x.to_f} #{facet.normal.y.to_f} #{facet.normal.z.to_f}\n"
         output << "outer loop\n"
         facet.vertices.each do |vertex|
-          output <<"vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
+          output << "vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
         end
         output << "endloop\n"
         output << "endfacet\n"
