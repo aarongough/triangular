@@ -214,4 +214,33 @@ RSpec.describe Solid do
       instance.center!
     end
   end
+
+  describe "#to_inc" do
+    subject { instance.to_inc }
+
+    let(:instance)  { described_class.new name, *facets }
+    let(:name)      { "cube" }
+    let(:facets)    { [Facet.new(nil, *vertices)] }
+    let(:vertices)  {
+      [
+        Vertex.new(1.0, -1.0, -1.0),
+        Vertex.new(-1.0, -1.0, -1.0),
+        Vertex.new(-1.0, -1.0, 1.0)
+      ]
+    }
+
+    let(:inc_text) do
+      <<-EOT
+# declare #{name} = mesh {
+  triangle {
+    <1.0, -1.0, -1.0>,
+    <-1.0, -1.0, -1.0>,
+    <-1.0, -1.0, 1.0>
+  }
+}
+      EOT
+    end
+
+    it { should eq inc_text }
+  end
 end

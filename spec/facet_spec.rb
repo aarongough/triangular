@@ -244,7 +244,9 @@ RSpec.describe Facet do
   end
 
   describe "#to_inc" do
-    subject { instance.to_inc }
+    subject { instance.to_inc(&block) }
+
+    let(:block) { nil }
 
     let(:instance) do
       vertex1 = Vertex.new(0.0, 0.0, 0.0)
@@ -254,16 +256,16 @@ RSpec.describe Facet do
       Facet.new(nil, vertex1, vertex2, vertex3)
     end
 
-    let(:inc_text) do
-      <<-EOT
-triangle {
-  <0.0, 0.0, 0.0>,
-  <2.0, 0.0, 0.0>,
-  <2.0, 2.0, 0.0>
-}
-      EOT
+    it "should return triangle text" do
+      should eq "triangle {\n  <0.0, 0.0, 0.0>,\n  <2.0, 0.0, 0.0>,\n  <2.0, 2.0, 0.0>\n}"
     end
 
-    it { should eq inc_text }
+    context "when an indent block given" do
+      let(:block) { -> ls { ls.map! { |l| " " * 2 + l } } }
+
+      it "should return indented triangle text" do
+        should eq "  triangle {\n    <0.0, 0.0, 0.0>,\n    <2.0, 0.0, 0.0>,\n    <2.0, 2.0, 0.0>\n  }"
+      end
+    end
   end
 end
