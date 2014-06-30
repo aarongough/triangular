@@ -88,8 +88,6 @@ module Triangular
       solid
     end
 
-    alias_method :inc_name, :name
-
     def to_inc
       lines = ["# declare #{inc_name} = mesh {"]
       facets.each do |f|
