@@ -98,5 +98,9 @@ module Triangular
       lines << '}'
       lines.join("\n") + "\n"
     end
+
+    def inc_name
+      name.gsub(%r{[^\w_]}, "_")
+    end
   end
 end

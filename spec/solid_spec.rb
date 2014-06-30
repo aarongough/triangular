@@ -229,9 +229,9 @@ RSpec.describe Solid do
       ]
     }
 
-    let(:inc_text) do
-      <<-EOT
-# declare #{name} = mesh {
+    it "should return mesh text" do
+      should eq(<<-EOT)
+# declare cube = mesh {
   triangle {
     <1.0, -1.0, -1.0>,
     <-1.0, -1.0, -1.0>,
@@ -241,6 +241,36 @@ RSpec.describe Solid do
       EOT
     end
 
-    it { should eq inc_text }
+    context "when #inc_name returns 'cube_1'" do
+      before { allow(instance).to receive(:inc_name) { 'cube_1' } }
+
+      it "should return mesh text with mesh name 'cube_1'" do
+        should eq(<<-EOT)
+# declare cube_1 = mesh {
+  triangle {
+    <1.0, -1.0, -1.0>,
+    <-1.0, -1.0, -1.0>,
+    <-1.0, -1.0, 1.0>
+  }
+}
+        EOT
+      end
+    end
+  end
+
+  describe "#inc_name" do
+    subject { instance.inc_name }
+
+    let(:instance) { described_class.new name }
+
+    context "when name is 'cube'" do
+      let(:name) { 'cube' }
+      it { should eq name }
+    end
+
+    context "when name is 'cube-1'" do
+      let(:name) { 'cube-1' }
+      it { should eq 'cube_1' }
+    end
   end
 end
