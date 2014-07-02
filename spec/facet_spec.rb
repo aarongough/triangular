@@ -59,7 +59,29 @@ RSpec.describe Facet do
         expect(subject.vertices[2].z).to eq -0.75
       end
     end
-    
+
+    context "with values in scientific notation" do
+      let(:text) do
+        <<-EOD
+facet normal  0.955654E-01 -0.966960E+00  0.236339E+00
+ outer loop
+  vertex  0.000000E+00  0.800000E+01  0.000000E+00
+  vertex -0.675880E+01  0.442610E+01 -0.118893E+02
+  vertex -0.335710E+01  0.442610E+01 -0.132648E+02
+ endloop
+endfacet
+        EOD
+      end
+
+      specify "should have right vertices" do
+        expect(subject.vertices).to eq [
+          Vertex.new(0.000000E+00, 0.800000E+01, 0.000000E+00),
+          Vertex.new(-0.675880E+01, 0.442610E+01, -0.118893E+02),
+          Vertex.new(-0.335710E+01, 0.442610E+01, -0.132648E+02)
+        ]
+      end
+    end
+
     context "when passed multiple facets" do
       let(:text) do
         <<-EOD

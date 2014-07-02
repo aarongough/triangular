@@ -19,6 +19,12 @@ RSpec.describe Point do
       it { should be_a Point }
       it { should eq Point.new(-5.23431439438796e-32, 0.0, 5.23431439438796e32) }
     end
+
+    context "with a point that contains scientific notation" do
+      let(:text) { "  0.000000E+00  0.800000E+01  0.000000E+00\n" }
+
+      it { should eq Point.new(0.000000E+00, 0.800000E+01, 0.000000E+00) }
+    end
   end
   
   describe "#to_s" do

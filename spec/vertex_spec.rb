@@ -12,6 +12,12 @@ RSpec.describe Vertex do
       it { should be_a Vertex }
       it { should eq Vertex.new(16.5, 0, -0.75) }
     end
+
+    context "with a point that contains scientific notation" do
+      let(:text) { "  vertex  0.000000E+00  0.800000E+01  0.000000E+00\n" }
+
+      it { should eq Vertex.new(0.000000E+00, 0.800000E+01, 0.000000E+00) }
+    end
   end
   
   describe "#to_s" do

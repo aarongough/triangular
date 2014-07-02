@@ -74,13 +74,13 @@ module Triangular
     
     def self.pattern
       /
-      \s* facet\snormal\s (?<normal> #{Point.pattern})\s
-      \s* outer\sloop\s
-      \s* (?<vertex1> #{Vertex.pattern})
-      \s* (?<vertex2> #{Vertex.pattern})
-      \s* (?<vertex3> #{Vertex.pattern})
-      \s* endloop\s
-      \s* endfacet\s
+      \s*facet\s+normal\s+(?<normal> #{Point.pattern})\s*
+      \s*outer\s+loop\s*
+      \s*(?<vertex1> #{Vertex.pattern})
+      \s*(?<vertex2> #{Vertex.pattern})
+      \s*(?<vertex3> #{Vertex.pattern})
+      \s*endloop\s*
+      \s*endfacet\s*
       /x
     end
 
