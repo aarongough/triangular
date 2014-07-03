@@ -32,5 +32,18 @@ RSpec.describe Triangular do
         expect(subject.facets.length).to eq 12
       end
     end
+
+    context "when file is faked ascii" do
+      let(:file) { File.open(File.expand_path("#{File.dirname(__FILE__)}/fixtures/fake_ascii.stl")) }
+
+      specify "should call Solid#parse_binary" do
+        expect(Solid).to receive(:parse_binary).with(file.read)
+        subject
+      end
+
+      specify "should have 12 facets" do
+        expect(subject.facets.length).to eq 12
+      end
+    end
   end
 end

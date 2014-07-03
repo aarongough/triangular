@@ -86,6 +86,8 @@ module Triangular
       solid.facets = Facet.parse(string.gsub(partial_pattern, ""))
       
       solid
+    rescue ArgumentError
+      parse_binary(string)
     end
 
     def self.parse_binary(string)
