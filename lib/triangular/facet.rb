@@ -96,5 +96,15 @@ module Triangular
       yield lines if block_given?
       lines.join("\n")
     end
+
+    def signed_volume
+      vector321 = vertices[2].x * vertices[1].y * vertices[0].z
+      vector231 = vertices[1].x * vertices[2].y * vertices[0].z
+      vector312 = vertices[2].x * vertices[0].y * vertices[1].z
+      vector132 = vertices[0].x * vertices[2].y * vertices[1].z
+      vector213 = vertices[1].x * vertices[0].y * vertices[2].z
+      vector123 = vertices[0].x * vertices[1].y * vertices[2].z
+      (-vector321 + vector231 + vector312 - vector132 - vector213 + vector123) / 6.0
+    end
   end
 end

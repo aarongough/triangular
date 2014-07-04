@@ -115,5 +115,9 @@ module Triangular
     def inc_name
       name.gsub(%r{[^\w_]}, "_")
     end
+
+    def volume
+      facets.inject(0) { |sum, facet| sum + facet.signed_volume }
+    end
   end
 end

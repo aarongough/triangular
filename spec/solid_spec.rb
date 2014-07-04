@@ -273,4 +273,12 @@ RSpec.describe Solid do
       it { should eq 'cube_1' }
     end
   end
+
+  describe "#volume" do
+    subject { instance.volume }
+
+    let(:instance) { described_class.parse_binary fixture("test_binary_cube.stl").read }
+
+    it { should eq(2 ** 3) }
+  end
 end
