@@ -14,30 +14,32 @@ that new features will be added often!
 
 ### A Quick Example
 
-    require "rubygems"
-    require "triangular"
+```ruby
+require "rubygems"
+require "triangular"
 
-    # Open and parse an STL file
-    solid = Triangular.parse_file("test.stl")
+# Open and parse an STL file
+solid = Triangular.parse_file("test.stl")
 
-    # Set the units of measurement for the resulting solid to inches
-    solid.units = :inches
+# Set the units of measurement for the resulting solid to inches
+solid.units = :inches
 
-    # Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
-    solid.align_to_origin!
+# Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
+solid.align_to_origin!
 
-    # Get the bounding box of the solid
-    bounds = solid.get_bounds
+# Get the bounding box of the solid
+bounds = solid.get_bounds
 
-    # Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
-    slice = solid.slice_at_z(0.7)
+# Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
+slice = solid.slice_at_z(0.7)
 
-    # Open a file for SVG output
-    File.open("slice.svg", "w+") do |file|
+# Open a file for SVG output
+File.open("slice.svg", "w+") do |file|
 
-      # Output the slice as an SVG document (correctly scaled according to the solid's units)
-      file.puts slice.to_svg(bounds[1].x, bounds[1].y, solid.units)
-    end
+  # Output the slice as an SVG document (correctly scaled according to the solid's units)
+  file.puts slice.to_svg(bounds[1].x, bounds[1].y, solid.units)
+end
+```
 
 ### Installation
 
@@ -45,7 +47,9 @@ For ease of use Triangular is packaged as a RubyGem. Providing you already
 have Ruby and RubyGems installing Triangular is as easy as entering the
 following command in a terminal:
 
-    gem install triangular
+```bash
+gem install triangular
+```
 
 ### Performance
 
@@ -58,14 +62,16 @@ it could definitely be improved.
 For example here is some information about run-times when processing a 51Mb
 STL file:
 
-    solid = Triangular.parse("big_file.stl")
-    # 65 seconds
+```ruby
+solid = Triangular.parse("big_file.stl")
+# 65 seconds
 
-    solid.align_to_origin!
-    # 8 seconds
+solid.align_to_origin!
+# 8 seconds
 
-    solid.slice_at_z(1.0)
-    # 2 seconds
+solid.slice_at_z(1.0)
+# 2 seconds
+```
 
 ### Author & Credits
 
