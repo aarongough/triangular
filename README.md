@@ -1,4 +1,5 @@
 # Triangular
+[![Build Status](https://travis-ci.org/siegfried/triangular.svg?branch=master)](https://travis-ci.org/siegfried/triangular)
 
 Triangular is an easy-to-use Ruby library for reading, writing and
 manipulating Stereolithography (STL) files.
