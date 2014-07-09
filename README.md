@@ -69,9 +69,9 @@ STL file:
 
 ### Author & Credits
 
-Author
-:   [Aaron Gough](mailto:aaron@aarongough.com)
-:   [Zhi-Qiang Lei](mailto:zhiqiang.lei@gmail.com)
+Authors:
+*   [Aaron Gough](mailto:aaron@aarongough.com)
+*   [Zhi-Qiang Lei](mailto:zhiqiang.lei@gmail.com)
 
 
 Special thanks go out to [Alkas Baybas](https://github.com/abaybas) for
