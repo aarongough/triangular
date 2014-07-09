@@ -34,6 +34,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     ptools (1.2.4)
+    rake (10.3.2)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -57,5 +58,6 @@ DEPENDENCIES
   bundler (>= 1.0.0)
   cucumber
   pry
+  rake
   rspec (~> 3)
   triangular!
