@@ -71,6 +71,7 @@ STL file:
 
 Author
 :   [Aaron Gough](mailto:aaron@aarongough.com)
+:   [Zhi-Qiang Lei](mailto:zhiqiang.lei@gmail.com)
 
 
 Special thanks go out to [Alkas Baybas](https://github.com/abaybas) for
