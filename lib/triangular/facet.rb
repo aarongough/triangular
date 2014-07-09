@@ -74,14 +74,37 @@ module Triangular
     
     def self.pattern
       /
-      \s* facet\snormal\s (?<normal> #{Point.pattern})\s
-      \s* outer\sloop\s
-      \s* (?<vertex1> #{Vertex.pattern})
-      \s* (?<vertex2> #{Vertex.pattern})
-      \s* (?<vertex3> #{Vertex.pattern})
-      \s* endloop\s
-      \s* endfacet\s
+      \s*facet\s+normal\s+(?<normal> #{Point.pattern})\s*
+      \s*outer\s+loop\s*
+      \s*(?<vertex1> #{Vertex.pattern})
+      \s*(?<vertex2> #{Vertex.pattern})
+      \s*(?<vertex3> #{Vertex.pattern})
+      \s*endloop\s*
+      \s*endfacet\s*
       /x
+    end
+
+    def to_inc
+      lines = ['triangle {']
+      vertices.each.with_index do |v, i|
+        text = "<#{v.x}, #{v.y}, #{v.z}>"
+        text = " " * 2 + text
+        text << ',' unless i == vertices.length - 1
+        lines << text
+      end
+      lines << '}'
+      yield lines if block_given?
+      lines.join("\n")
+    end
+
+    def signed_volume
+      vector321 = vertices[2].x * vertices[1].y * vertices[0].z
+      vector231 = vertices[1].x * vertices[2].y * vertices[0].z
+      vector312 = vertices[2].x * vertices[0].y * vertices[1].z
+      vector132 = vertices[0].x * vertices[2].y * vertices[1].z
+      vector213 = vertices[1].x * vertices[0].y * vertices[2].z
+      vector123 = vertices[0].x * vertices[1].y * vertices[2].z
+      (-vector321 + vector231 + vector312 - vector132 - vector213 + vector123) / 6.0
     end
   end
 end

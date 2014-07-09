@@ -1,21 +1,24 @@
 require "spec_helper"
 
-describe Vector do
+RSpec.describe Vector do
   describe "#angle_to" do
-    before do 
-      @vector = Vector.new(0.0, 0.0, -1.0)
+    subject { instance.angle_to vector }
+
+    let(:instance) { Vector.new(0.0, 0.0, -1.0) }
+
+    context "for opposite vector" do
+      let(:vector) { Vector.new(0.0, 0.0, 1.0) }
+      it { should eq 180 }
     end
-    
-    it "should return 180 for opposite vector" do
-      @vector.angle_to(Vector.new(0.0, 0.0, 1.0))
+
+    context "for perpendicular vector" do
+      let(:vector) { Vector.new(1.0, 0.0, 0.0) }
+      it { should eq 90 }
     end
-    
-    it "should retun 90 for perpendicular vector" do
-      @vector.angle_to(Vector.new(1.0, 0.0, 0.0))
-    end
-    
-    it "should return 0 for same vector" do
-      @vector.angle_to(Vector.new(0.0, 0.0, -1.0))
+
+    context "for same vector" do
+      let(:vector) { Vector.new(0.0, 0.0, -1.0) }
+      it { should eq 0 }
     end
   end
 end

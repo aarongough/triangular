@@ -8,14 +8,19 @@ require 'triangular/units'
 require 'triangular/solid'
 require 'triangular/ray'
 
+require 'ptools'
+
 module Triangular
   def self.parse(string)
     Solid.parse(string)
   end
   
   def self.parse_file(path)
-    File.open(path) do |file|
-      Solid.parse(file.read)
+    data = File.read path
+    if File.binary? path
+      Solid.parse_binary data
+    else
+      Solid.parse data
     end
   end
 end

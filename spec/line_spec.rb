@@ -1,274 +1,211 @@
 require 'spec_helper'
 
-describe Line do
+RSpec.describe Line do
   describe "#intersects_z?" do 
+    subject { instance.intersects_z? value }
+
+    let(:value) { 3.0 }
+
     context "for a line that intersects the target Z plane" do
-      context "with a positive Z vector" do
-        before do
-          @line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(0.0, 0.0, 6.0))
-        end
-        
-        it "should return true" do
-          @line.intersects_z?(3.0).should be_true
-        end
-      end
-      
-      context "with a negative Z vector" do
-        before do
-          @line = Line.new(Vertex.new(0.0, 0.0, 6.0), Vertex.new(0.0, 0.0, 0.0))
-        end
-        
-        it "should return true" do
-          @line.intersects_z?(3.0).should be_true
-        end
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(0.0, 0.0, 6.0)) }
+
+      it { should eq true }
+    end
+
+    context "with a negative Z vector" do
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 6.0), Vertex.new(0.0, 0.0, 0.0)) }
+
+      it { should eq true }
     end
     
     context "for a line that does not intersect the target Z plane" do
-      before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
-      end
-      
-      it "should return false" do
-        @line.intersects_z?(3.0).should be_false
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0)) }
+
+      it { should eq false }
     end
   end
   
   describe "#intersection_at_z" do
+    subject { instance.intersection_at_z value }
+
+    let(:value) { 0 }
+
     context "for a line that intersects the target Z plane" do
       context "and spans both positive and negative space" do
         context "with a positive Z vector" do
-          before do
-            @line = Line.new(Vertex.new(-1.0, 1.0, 1.0), Vertex.new(1.0, 1.0, -1.0))
-          end
-          
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_z(0).x.should == 0.0
-            @line.intersection_at_z(0).y.should == 1.0
-            @line.intersection_at_z(0).z.should == 0.0
-          end
+          let(:instance) { Line.new(Vertex.new(-1.0, 1.0, 1.0), Vertex.new(1.0, 1.0, -1.0)) }
+
+          it { should eq Point.new(0.0, 1.0, 0.0) }
         end
-        
+
         context "with a negative Z vector" do
-          before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
-          end
-          
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_z(0).x.should == 0
-            @line.intersection_at_z(0).y.should == 0
-            @line.intersection_at_z(0).z.should == 0
-          end
+          let(:instance) { Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0)) }
+
+          it { should eq Point.new(0.0, 0.0, 0.0) }
         end
       end
     end
       
     context "for a line that lies on the target Z plane" do
-      before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 3.0), Vertex.new(0.0, 6.0, 3.0))
-      end
-      
-      it "should raise an error" do
-        @line.intersection_at_z(3.0).should == nil
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 3.0), Vertex.new(0.0, 6.0, 3.0)) }
+
+      it { should be_nil }
     end
-    
+
     context "for a line that does not intersect the target Z plane" do
-      before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
-      end
-      
-      it "should return nil" do
-        @line.intersection_at_z(3.0).should be_nil
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0)) }
+
+      it { should be_nil }
     end
   end
   
   describe "#intersects_x?" do 
+    subject { instance.intersects_x? value }
+
+    let(:value) { 3.0 }
+
     context "for a line that intersects the target X plane" do
       context "with a positive X vector" do
-        before do
-          @line = Line.new(Vertex.new(2.0, 0.0, 0.0), Vertex.new(3.2, 0.0, 6.0))
-        end
+        let(:instance) { Line.new(Vertex.new(2.0, 0.0, 0.0), Vertex.new(3.2, 0.0, 6.0)) }
         
-        it "should return true" do
-          @line.intersects_x?(3.0).should be_true
-        end
+        it { should eq true }
       end
       
       context "with a negative X vector" do
-        before do
-          @line = Line.new(Vertex.new(3.2, 0.0, 6.0), Vertex.new(2.0, 0.0, 0.0))
-        end
+        let(:instance) { Line.new(Vertex.new(3.2, 0.0, 6.0), Vertex.new(2.0, 0.0, 0.0)) }
         
-        it "should return true" do
-          @line.intersects_x?(3.0).should be_true
-        end
+        it { should eq true }
       end
     end
     
     context "for a line that does not intersect the target X plane" do
-      before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0)) }
       
-      it "should return false" do
-        @line.intersects_x?(3.0).should be_false
-      end
+      it { should eq false }
     end
   end
   
   describe "#intersection_at_x" do
+    subject { instance.intersection_at_x value }
+
+    let(:value) { 0 }
+
     context "for a line that intersects the target X plane" do
       context "and spans both positive and negative space" do
         context "with a positive X vector" do
-          before do
-            @line = Line.new(Vertex.new(-1.0, 2.0, 1.0), Vertex.new(1.0, 2.0, -1.0))
-          end
+          let(:instance) { Line.new(Vertex.new(-1.0, 2.0, 1.0), Vertex.new(1.0, 2.0, -1.0)) }
           
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_x(0).x.should == 0.0
-            @line.intersection_at_x(0).y.should == 2.0
-            @line.intersection_at_x(0).z.should == 0.0
-          end
+          it { should eq Point.new(0.0, 2.0, 0.0) }
         end
         
         context "with a negative X vector" do
-          before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
-          end
-          
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_x(0).x.should == 0
-            @line.intersection_at_x(0).y.should == 0
-            @line.intersection_at_x(0).z.should == 0
-          end
+          let(:instance) { Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0)) }
+
+          it { should eq Point.new(0.0, 0.0, 0.0) }
         end
       end
     end
       
     context "for a line that lies on the target X plane" do
-      before do
-        @line = Line.new(Vertex.new(3.0, 0.0, 3.0), Vertex.new(3.0, 6.0, 6.0))
-      end
+      let(:instance) { Line.new(Vertex.new(3.0, 0.0, 3.0), Vertex.new(3.0, 6.0, 6.0)) }
+      let(:value) { 3.0 }
       
-      it "should raise an error" do
-        @line.intersection_at_x(3.0).should == nil
-      end
+      it { should be_nil }
     end
     
     context "for a line that does not intersect the target X plane" do
-      before do
-        @line = Line.new(Vertex.new(4.0, 0.0, 4.0), Vertex.new(6.0, 0.0, 6.0))
-      end
-      
-      it "should return nil" do
-        @line.intersection_at_x(3.0).should be_nil
-      end
+      let(:instance) { Line.new(Vertex.new(4.0, 0.0, 4.0), Vertex.new(6.0, 0.0, 6.0)) }
+      let(:value) { 3.0 }
+
+      it { should be_nil }
     end
   end
   
   describe "#intersects_y?" do 
+    subject { instance.intersects_y? value }
+
+    let(:value) { 3.0 }
+
     context "for a line that intersects the target Y plane" do
       context "with a positive Y vector" do
-        before do
-          @line = Line.new(Vertex.new(0.0, 2.0, 0.0), Vertex.new(0.0, 3.1, 6.0))
-        end
+        let(:instance) { Line.new(Vertex.new(0.0, 2.0, 0.0), Vertex.new(0.0, 3.1, 6.0)) }
         
-        it "should return true" do
-          @line.intersects_y?(3.0).should be_true
-        end
+        it { should eq true }
       end
       
       context "with a negative Y vector" do
-        before do
-          @line = Line.new(Vertex.new(0.0, 3.1, 6.0), Vertex.new(0.0, 2.0, 0.0))
-        end
+        let(:instance) { Line.new(Vertex.new(0.0, 3.1, 6.0), Vertex.new(0.0, 2.0, 0.0)) }
         
-        it "should return true" do
-          @line.intersects_y?(3.0).should be_true
-        end
+        it { should eq true }
       end
     end
     
     context "for a line that does not intersect the target Y plane" do
-      before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
-      end
+      let(:instance) { Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0)) }
       
-      it "should return false" do
-        @line.intersects_y?(3.0).should be_false
-      end
+      it { should eq false }
     end
   end
   
   describe "#intersection_at_y" do
+    subject { instance.intersection_at_y value }
+
+    let(:value) { 0 }
+
     context "for a line that intersects the target Y plane" do
       context "and spans both positive and negative space" do
         context "with a positive Y vector" do
-          before do
-            @line = Line.new(Vertex.new(2.0, -1.0, 1.0), Vertex.new(2.0, 1.0, -1.0))
-          end
+          let(:instance) { Line.new(Vertex.new(2.0, -1.0, 1.0), Vertex.new(2.0, 1.0, -1.0)) }
           
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_y(0).x.should == 2.0
-            @line.intersection_at_y(0).y.should == 0.0
-            @line.intersection_at_y(0).z.should == 0.0
-          end
+          it { should eq Point.new(2.0, 0.0, 0.0) }
         end
         
         context "with a negative Y vector" do
-          before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
-          end
+          let(:instance) { Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0)) }
           
-          it "should return a Point representing the intersection" do
-            @line.intersection_at_y(0).x.should == 0
-            @line.intersection_at_y(0).y.should == 0
-            @line.intersection_at_y(0).z.should == 0
-          end
+          it { should eq Point.new(0.0, 0.0, 0.0) }
         end
       end
     end
       
     context "for a line that lies on the target Y plane" do
-      before do
-        @line = Line.new(Vertex.new(3.0, 3.0, 3.0), Vertex.new(3.0, 3.0, 6.0))
-      end
+      let(:instance) { Line.new(Vertex.new(3.0, 3.0, 3.0), Vertex.new(3.0, 3.0, 6.0)) }
+      let(:value) { 3.0 }
       
-      it "should raise an error" do
-        @line.intersection_at_y(3.0).should == nil
-      end
+      it { should be_nil }
     end
     
     context "for a line that does not intersect the target Y plane" do
-      before do
-        @line = Line.new(Vertex.new(4.0, 4.0, 4.0), Vertex.new(6.0, 6.0, 6.0))
-      end
+      let(:instance) { Line.new(Vertex.new(4.0, 4.0, 4.0), Vertex.new(6.0, 6.0, 6.0)) }
+      let(:value) { 3.0 }
       
-      it "should return nil" do
-        @line.intersection_at_y(3.0).should be_nil
-      end
+      it { should be_nil }
     end
   end
   
   describe "==" do
-    it "should return true when the two lines are identical" do
-      (Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_true
+    subject { instance == line }
+
+    let(:instance) { Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) }
+
+    context "when the line has identical values" do
+      let(:line) { Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) }
+
+      it { should eq true }
     end
-    
-    it "should not return true when the lines are not identical" do
-      (Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be_false
+
+    context "when the line has different values" do
+      let(:line) { Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) }
+
+      it { should eq false }
     end
   end
   
   describe "#to_svg_path" do 
-    it "should return a string containing an SVG path" do
-      line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0))
-      expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="0.005" />'
-      
-      line.to_svg_path(:inches).should == expected_output
-    end
+    subject { instance.to_svg_path :inches }
+
+    let(:instance) { Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0)) }
+
+    it { should eq '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="0.005" />' }
   end
 end

@@ -1,22 +1,49 @@
 require 'spec_helper'
 
-describe Triangular do  
+RSpec.describe Triangular do  
   describe ".parse" do
+    subject { described_class.parse input }
+
+    let(:input) { fixture("y-axis-spacer.stl").read }
+
     it "should return a Solid" do
-      stl_string = File.open("#{File.dirname(__FILE__)}/fixtures/y-axis-spacer.stl").read
-      result = Triangular.parse(stl_string)
-      
-      result.should be_a Solid
+      should be_a Solid
     end
   end
-  
-  describe ".parse_file" do
-    it "should return a Solid" do
-      input = File.open(File.expand_path("#{File.dirname(__FILE__)}/fixtures/y-axis-spacer.stl")).read
-      result = Triangular.parse_file(File.expand_path("#{File.dirname(__FILE__)}/fixtures/y-axis-spacer.stl"))
-      result.should be_a Solid
 
-      result.to_s.should == input
+  describe ".parse_file" do
+    subject { described_class.parse_file file }
+
+    let(:file) { fixture("y-axis-spacer.stl") }
+
+    it "should return a Solid" do
+      should be_a Solid
+    end
+
+    specify 'should has the right content' do
+      expect(subject.to_s).to eq file.read
+    end
+
+    context "when file is in binary" do
+      let(:file) { fixture("test_binary_cube.stl") }
+      it { should be_a Solid }
+
+      specify "should have 12 facets" do
+        expect(subject.facets.length).to eq 12
+      end
+    end
+
+    context "when file is faked ascii" do
+      let(:file) { fixture("fake_ascii.stl") }
+
+      specify "should call Solid#parse_binary" do
+        expect(Solid).to receive(:parse_binary).with(file.read)
+        subject
+      end
+
+      specify "should have 12 facets" do
+        expect(subject.facets.length).to eq 12
+      end
     end
   end
 end

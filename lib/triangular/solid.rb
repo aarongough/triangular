@@ -15,7 +15,7 @@ module Triangular
         output << "facet normal #{facet.normal.x.to_f} #{facet.normal.y.to_f} #{facet.normal.z.to_f}\n"
         output << "outer loop\n"
         facet.vertices.each do |vertex|
-          output <<"vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
+          output << "vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
         end
         output << "endloop\n"
         output << "endfacet\n"
@@ -86,6 +86,38 @@ module Triangular
       solid.facets = Facet.parse(string.gsub(partial_pattern, ""))
       
       solid
+    rescue ArgumentError
+      parse_binary(string)
+    end
+
+    def self.parse_binary(string)
+      facets_count = string.unpack('C80L1').last
+      solid = new 'm_0'
+      string.unpack('C80L1' + 'f12S1' * facets_count)[81..-1].each_slice(13) do |fs|
+        facet = Facet.new
+        fs[3..-2].each_slice(3) do |x, y, z|
+          facet.vertices << Vertex.new(x, y, z)
+        end
+        solid.facets << facet
+      end
+      solid
+    end
+
+    def to_inc
+      lines = ["# declare #{inc_name} = mesh {"]
+      facets.each do |f|
+        lines << f.to_inc { |ls| ls.map! { |l| " " * 2 + l } }
+      end
+      lines << '}'
+      lines.join("\n") + "\n"
+    end
+
+    def inc_name
+      name.gsub(%r{[^\w_]}, "_")
+    end
+
+    def volume
+      facets.inject(0) { |sum, facet| sum + facet.signed_volume }
     end
   end
 end
