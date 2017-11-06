@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "triangular"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "rspec", "~> 2"
+  s.add_development_dependency "rspec", "~> 3"
+  s.add_development_dependency "simplecov", "0.15.1"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
