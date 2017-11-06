@@ -9,7 +9,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_z?(3.0).should be true
+          expect(@line.intersects_z?(3.0)).to be true
         end
       end
 
@@ -19,7 +19,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_z?(3.0).should be true
+          expect(@line.intersects_z?(3.0)).to be true
         end
       end
     end
@@ -30,7 +30,7 @@ describe Line do
       end
 
       it "should return false" do
-        @line.intersects_z?(3.0).should be false
+        expect(@line.intersects_z?(3.0)).to be false
       end
     end
   end
@@ -44,9 +44,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_z(0).x.should == 0.0
-            @line.intersection_at_z(0).y.should == 1.0
-            @line.intersection_at_z(0).z.should == 0.0
+            expect(@line.intersection_at_z(0).x).to eq(0.0)
+            expect(@line.intersection_at_z(0).y).to eq(1.0)
+            expect(@line.intersection_at_z(0).z).to eq(0.0)
           end
         end
 
@@ -56,9 +56,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_z(0).x.should == 0
-            @line.intersection_at_z(0).y.should == 0
-            @line.intersection_at_z(0).z.should == 0
+            expect(@line.intersection_at_z(0).x).to eq(0)
+            expect(@line.intersection_at_z(0).y).to eq(0)
+            expect(@line.intersection_at_z(0).z).to eq(0)
           end
         end
       end
@@ -70,7 +70,7 @@ describe Line do
       end
 
       it "should raise an error" do
-        @line.intersection_at_z(3.0).should == nil
+        expect(@line.intersection_at_z(3.0)).to eq(nil)
       end
     end
 
@@ -80,7 +80,7 @@ describe Line do
       end
 
       it "should return nil" do
-        @line.intersection_at_z(3.0).should be_nil
+        expect(@line.intersection_at_z(3.0)).to be_nil
       end
     end
   end
@@ -93,7 +93,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_x?(3.0).should be true
+          expect(@line.intersects_x?(3.0)).to be true
         end
       end
 
@@ -103,7 +103,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_x?(3.0).should be true
+          expect(@line.intersects_x?(3.0)).to be true
         end
       end
     end
@@ -114,7 +114,7 @@ describe Line do
       end
 
       it "should return false" do
-        @line.intersects_x?(3.0).should be false
+        expect(@line.intersects_x?(3.0)).to be false
       end
     end
   end
@@ -128,9 +128,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_x(0).x.should == 0.0
-            @line.intersection_at_x(0).y.should == 2.0
-            @line.intersection_at_x(0).z.should == 0.0
+            expect(@line.intersection_at_x(0).x).to eq(0.0)
+            expect(@line.intersection_at_x(0).y).to eq(2.0)
+            expect(@line.intersection_at_x(0).z).to eq(0.0)
           end
         end
 
@@ -140,9 +140,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_x(0).x.should == 0
-            @line.intersection_at_x(0).y.should == 0
-            @line.intersection_at_x(0).z.should == 0
+            expect(@line.intersection_at_x(0).x).to eq(0)
+            expect(@line.intersection_at_x(0).y).to eq(0)
+            expect(@line.intersection_at_x(0).z).to eq(0)
           end
         end
       end
@@ -154,7 +154,7 @@ describe Line do
       end
 
       it "should raise an error" do
-        @line.intersection_at_x(3.0).should == nil
+        expect(@line.intersection_at_x(3.0)).to eq(nil)
       end
     end
 
@@ -164,7 +164,7 @@ describe Line do
       end
 
       it "should return nil" do
-        @line.intersection_at_x(3.0).should be_nil
+        expect(@line.intersection_at_x(3.0)).to be_nil
       end
     end
   end
@@ -177,7 +177,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_y?(3.0).should be true
+          expect(@line.intersects_y?(3.0)).to be true
         end
       end
 
@@ -187,7 +187,7 @@ describe Line do
         end
 
         it "should return true" do
-          @line.intersects_y?(3.0).should be true
+          expect(@line.intersects_y?(3.0)).to be true
         end
       end
     end
@@ -198,7 +198,7 @@ describe Line do
       end
 
       it "should return false" do
-        @line.intersects_y?(3.0).should be false
+        expect(@line.intersects_y?(3.0)).to be false
       end
     end
   end
@@ -212,9 +212,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_y(0).x.should == 2.0
-            @line.intersection_at_y(0).y.should == 0.0
-            @line.intersection_at_y(0).z.should == 0.0
+            expect(@line.intersection_at_y(0).x).to eq(2.0)
+            expect(@line.intersection_at_y(0).y).to eq(0.0)
+            expect(@line.intersection_at_y(0).z).to eq(0.0)
           end
         end
 
@@ -224,9 +224,9 @@ describe Line do
           end
 
           it "should return a Point representing the intersection" do
-            @line.intersection_at_y(0).x.should == 0
-            @line.intersection_at_y(0).y.should == 0
-            @line.intersection_at_y(0).z.should == 0
+            expect(@line.intersection_at_y(0).x).to eq(0)
+            expect(@line.intersection_at_y(0).y).to eq(0)
+            expect(@line.intersection_at_y(0).z).to eq(0)
           end
         end
       end
@@ -238,7 +238,7 @@ describe Line do
       end
 
       it "should raise an error" do
-        @line.intersection_at_y(3.0).should == nil
+        expect(@line.intersection_at_y(3.0)).to eq(nil)
       end
     end
 
@@ -248,18 +248,18 @@ describe Line do
       end
 
       it "should return nil" do
-        @line.intersection_at_y(3.0).should be_nil
+        expect(@line.intersection_at_y(3.0)).to be_nil
       end
     end
   end
 
   describe "==" do
     it "should return true when the two lines are identical" do
-      (Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be true
+      expect(Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).to be true
     end
 
     it "should not return true when the lines are not identical" do
-      (Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).should be false
+      expect(Line.new(Vertex.new(-1.0, -1.0, -1.1), Vertex.new(1.0, 1.0, 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).to be false
     end
   end
 
@@ -268,7 +268,7 @@ describe Line do
       line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0))
       expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="0.005" />'
 
-      line.to_svg_path(:inches).should == expected_output
+      expect(line.to_svg_path(:inches)).to eq(expected_output)
     end
   end
 end

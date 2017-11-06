@@ -14,7 +14,7 @@ describe Ray do
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == nil
+        expect(@ray.intersection(facet)).to eq(nil)
       end
     end
     
@@ -26,7 +26,7 @@ describe Ray do
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == Point.new(1.0, 1.0, 1.2)
+        expect(@ray.intersection(facet)).to eq(Point.new(1.0, 1.0, 1.2))
       end
     end
     
@@ -38,7 +38,7 @@ describe Ray do
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == Point.new(1.0, 1.0, 1.0)
+        expect(@ray.intersection(facet)).to eq(Point.new(1.0, 1.0, 1.0))
       end
     end
     
@@ -54,7 +54,7 @@ describe Ray do
         
         facet = Facet.new(nil, vertex1, vertex2, vertex3)
       
-        @ray.intersection(facet).should == Point.new(0.5, 0.5, 0.75)
+        expect(@ray.intersection(facet)).to eq(Point.new(0.5, 0.5, 0.75))
       end
     end
   end

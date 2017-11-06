@@ -26,20 +26,20 @@ describe Solid do
       end
       
       it "should return a Solid" do
-        @result.should be_a Solid
+        expect(@result).to be_a Solid
       end
       
       it "should correctly set the name parameter" do
-        @result.name.should == "y-axis-spacer"
+        expect(@result.name).to eq("y-axis-spacer")
       end
       
       it "should retun a Solid that has two Facets" do
-        @result.facets.length.should == 2
+        expect(@result.facets.length).to eq(2)
       end
       
       it "should return a Solid that has facets of type Facet" do
         @result.facets.each do |facet|
-          facet.should be_a Facet
+          expect(facet).to be_a Facet
         end
       end
     end
@@ -67,7 +67,7 @@ describe Solid do
       solid = Solid.parse(input)
       output = solid.to_s
       
-      output.should == input
+      expect(output).to eq(input)
     end
   end
   
@@ -77,7 +77,7 @@ describe Solid do
     end
 
     it "should return a Polyline" do
-      @solid.slice_at_z(0).should be_a Polyline
+      expect(@solid.slice_at_z(0)).to be_a Polyline
     end
   end
   
@@ -104,19 +104,19 @@ describe Solid do
     end
     
     it "should return an array" do
-      @solid.get_bounds.should be_a Array
+      expect(@solid.get_bounds).to be_a Array
     end
     
     it "should return a point with the smallest bounds" do
-      @solid.get_bounds[0].x.should == -16.5
-      @solid.get_bounds[0].y.should == -9.5
-      @solid.get_bounds[0].z.should == -0.75
+      expect(@solid.get_bounds[0].x).to eq(-16.5)
+      expect(@solid.get_bounds[0].y).to eq(-9.5)
+      expect(@solid.get_bounds[0].z).to eq(-0.75)
     end
     
     it "should return a point with the largest bounds" do
-      @solid.get_bounds[1].x.should == 16.5
-      @solid.get_bounds[1].y.should == 1.87
-      @solid.get_bounds[1].z.should == 0.0
+      expect(@solid.get_bounds[1].x).to eq(16.5)
+      expect(@solid.get_bounds[1].y).to eq(1.87)
+      expect(@solid.get_bounds[1].z).to eq(0.0)
     end
   end
   
@@ -143,8 +143,8 @@ describe Solid do
     end
     
     it "should call translate on each of it's Facets" do
-      @solid.facets[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @solid.facets[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(@solid.facets[0]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(@solid.facets[1]).to receive(:translate!).with(16.5, 9.5, 0.75)
       
       @solid.translate!(16.5, 9.5, 0.75)
     end
@@ -173,7 +173,7 @@ describe Solid do
     end
     
     it "should translate solid so the lowermost XYZ edges are all 0.0" do
-      @solid.should_receive(:translate!).with(16.5, 9.5, -5.0)
+      expect(@solid).to receive(:translate!).with(16.5, 9.5, -5.0)
       @solid.align_to_origin!
     end
   end
@@ -201,7 +201,7 @@ describe Solid do
     end
     
     it "should translate solid so the lowermost XYZ edges are all 0.0" do
-      @solid.should_receive(:translate!).with(-0.5, 4.0, -8.0)
+      expect(@solid).to receive(:translate!).with(-0.5, 4.0, -8.0)
       @solid.center!
     end
   end

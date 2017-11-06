@@ -14,7 +14,7 @@ describe Polyline do
       expected_svg += '  </g>' + "\n"
       expected_svg += '</svg>'
       
-      polyline.to_svg(20, 30, :inches, 1, 2).should == expected_svg
+      expect(polyline.to_svg(20, 30, :inches, 1, 2)).to eq(expected_svg)
     end
   end
 end

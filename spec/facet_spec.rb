@@ -16,45 +16,45 @@ describe Facet do
       end
       
       it "should return a facet object" do
-        @result.should be_a Facet
+        expect(@result).to be_a Facet
       end
       
       it "should return a facet with 3 vertices" do
-        @result.vertices.length.should == 3
+        expect(@result.vertices.length).to eq(3)
       end
       
       it "should return a facet with vertices of type Vertex" do
         @result.vertices.each do |vertex|
-          vertex.should be_a Vertex
+          expect(vertex).to be_a Vertex
         end
       end
       
       it "should return a facet with a normal of type Vector" do
-        @result.normal.should be_a Vector
+        expect(@result.normal).to be_a Vector
       end
       
       it "should correctly set the normal values" do
-        @result.normal.x.should == 0
-        @result.normal.y.should == 0
-        @result.normal.z.should == -1
+        expect(@result.normal.x).to eq(0)
+        expect(@result.normal.y).to eq(0)
+        expect(@result.normal.z).to eq(-1)
       end
       
       it "should correctly set the values for the first vertex" do
-        @result.vertices[0].x.should == 16.5
-        @result.vertices[0].y.should == 0
-        @result.vertices[0].z.should == -0.75
+        expect(@result.vertices[0].x).to eq(16.5)
+        expect(@result.vertices[0].y).to eq(0)
+        expect(@result.vertices[0].z).to eq(-0.75)
       end
       
       it "should correctly set the values for the second vertex" do
-        @result.vertices[1].x.should == 0
-        @result.vertices[1].y.should == -9.5
-        @result.vertices[1].z.should == -0.75
+        expect(@result.vertices[1].x).to eq(0)
+        expect(@result.vertices[1].y).to eq(-9.5)
+        expect(@result.vertices[1].z).to eq(-0.75)
       end
       
       it "should correctly set the values for the third vertex" do
-        @result.vertices[2].x.should == 0
-        @result.vertices[2].y.should == 0
-        @result.vertices[2].z.should == -0.75
+        expect(@result.vertices[2].x).to eq(0)
+        expect(@result.vertices[2].y).to eq(0)
+        expect(@result.vertices[2].z).to eq(-0.75)
       end
     end
     
@@ -79,9 +79,9 @@ describe Facet do
       end
       
       it "should return multiple facet objects" do
-        @result.should be_a Array
+        expect(@result).to be_a Array
         @result.each do |item|
-          item.should be_a Facet
+          expect(item).to be_a Facet
         end
       end
     end
@@ -103,7 +103,7 @@ describe Facet do
       expected_string += "endloop\n"
       expected_string += "endfacet\n"
       
-      facet.to_s.should == expected_string
+      expect(facet.to_s).to eq(expected_string)
     end
   end
   
@@ -119,37 +119,37 @@ describe Facet do
       
       context "when the target Z plane is 3.0" do
         it "should return a line object" do
-          @facet.intersection_at_z(3.0).should be_a Line
+          expect(@facet.intersection_at_z(3.0)).to be_a Line
         end
         
         it "should return a line with the correct start value" do
-          @facet.intersection_at_z(3.0).start.x.should == 0.0
-          @facet.intersection_at_z(3.0).start.y.should == 0.0
-          @facet.intersection_at_z(3.0).start.z.should == 3.0
+          expect(@facet.intersection_at_z(3.0).start.x).to eq(0.0)
+          expect(@facet.intersection_at_z(3.0).start.y).to eq(0.0)
+          expect(@facet.intersection_at_z(3.0).start.z).to eq(3.0)
         end
         
         it "should return a line with the correct end value" do
-          @facet.intersection_at_z(3.0).end.x.should == 3.0
-          @facet.intersection_at_z(3.0).end.y.should == 0.0
-          @facet.intersection_at_z(3.0).end.z.should == 3.0
+          expect(@facet.intersection_at_z(3.0).end.x).to eq(3.0)
+          expect(@facet.intersection_at_z(3.0).end.y).to eq(0.0)
+          expect(@facet.intersection_at_z(3.0).end.z).to eq(3.0)
         end
       end
       
       context "when the target Z plane is 6.0" do
         it "should return a line object" do
-          @facet.intersection_at_z(6.0).should be_a Line
+          expect(@facet.intersection_at_z(6.0)).to be_a Line
         end
         
         it "should return a line with the correct start value" do
-          @facet.intersection_at_z(6.0).start.x.should == 0.0
-          @facet.intersection_at_z(6.0).start.y.should == 0.0
-          @facet.intersection_at_z(6.0).start.z.should == 6.0
+          expect(@facet.intersection_at_z(6.0).start.x).to eq(0.0)
+          expect(@facet.intersection_at_z(6.0).start.y).to eq(0.0)
+          expect(@facet.intersection_at_z(6.0).start.z).to eq(6.0)
         end
         
         it "should return a line with the correct end value" do
-          @facet.intersection_at_z(6.0).end.x.should == 6.0
-          @facet.intersection_at_z(6.0).end.y.should == 0.0
-          @facet.intersection_at_z(6.0).end.z.should == 6.0
+          expect(@facet.intersection_at_z(6.0).end.x).to eq(6.0)
+          expect(@facet.intersection_at_z(6.0).end.y).to eq(0.0)
+          expect(@facet.intersection_at_z(6.0).end.z).to eq(6.0)
         end
       end
     end
@@ -168,15 +168,15 @@ describe Facet do
       end
       
       it "should return a line with the correct start value" do
-        @facet.intersection_at_z(0.0).start.x.should == 0.0
-        @facet.intersection_at_z(0.0).start.y.should == 1.0
-        @facet.intersection_at_z(0.0).start.z.should == 0.0
+        expect(@facet.intersection_at_z(0.0).start.x).to eq(0.0)
+        expect(@facet.intersection_at_z(0.0).start.y).to eq(1.0)
+        expect(@facet.intersection_at_z(0.0).start.z).to eq(0.0)
       end
       
       it "should return a line with the correct end value" do
-        @facet.intersection_at_z(0.0).end.x.should == -1.0
-        @facet.intersection_at_z(0.0).end.y.should == 1.0
-        @facet.intersection_at_z(0.0).end.z.should == 0.0
+        expect(@facet.intersection_at_z(0.0).end.x).to eq(-1.0)
+        expect(@facet.intersection_at_z(0.0).end.y).to eq(1.0)
+        expect(@facet.intersection_at_z(0.0).end.z).to eq(0.0)
       end
     end
     
@@ -190,7 +190,7 @@ describe Facet do
       end
       
       it "should return nil" do
-        @facet.intersection_at_z(1.0).should == nil
+        expect(@facet.intersection_at_z(1.0)).to eq(nil)
       end
     end
     
@@ -204,7 +204,7 @@ describe Facet do
       end
       
       it "should return nil" do
-        @facet.intersection_at_z(1.0).should == nil
+        expect(@facet.intersection_at_z(1.0)).to eq(nil)
       end
     end
   end
@@ -223,9 +223,9 @@ describe Facet do
     end
     
     it "should call translate on each of it's Vertices" do
-      @facet.vertices[0].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @facet.vertices[1].should_receive(:translate!).with(16.5, 9.5, 0.75)
-      @facet.vertices[2].should_receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(@facet.vertices[0]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(@facet.vertices[1]).to receive(:translate!).with(16.5, 9.5, 0.75)
+      expect(@facet.vertices[2]).to receive(:translate!).with(16.5, 9.5, 0.75)
       
       @facet.translate!(16.5, 9.5, 0.75)
     end

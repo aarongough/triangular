@@ -3,73 +3,73 @@ require 'spec_helper'
 describe Units do
   describe ".name" do
     it "should return 'inches' for :inches" do
-      Units.name(:inches).should == 'inches'
+      expect(Units.name(:inches)).to eq('inches')
     end
     
     it "should return 'centimeters' for :centimeters" do
-      Units.name(:centimeters).should == 'centimeters'
+      expect(Units.name(:centimeters)).to eq('centimeters')
     end
     
     it "should return 'millimeters' for :millimeters" do
-      Units.name(:millimeters).should == 'millimeters'
+      expect(Units.name(:millimeters)).to eq('millimeters')
     end
     
     it "should return 'none' for :none" do
-      Units.name(:none).should == 'none'
+      expect(Units.name(:none)).to eq('none')
     end
     
     it "should raise an exception if called with an unknown unit" do
-      lambda {
+      expect {
         Units.name(:error)
-      }.should raise_error
+      }.to raise_error
     end
   end
   
   describe ".svg_name" do
     it "should return 'in' for :inches" do
-      Units.svg_name(:inches).should == 'in'
+      expect(Units.svg_name(:inches)).to eq('in')
     end
     
     it "should return 'cm' for :centimeters" do
-      Units.svg_name(:centimeters).should == 'cm'
+      expect(Units.svg_name(:centimeters)).to eq('cm')
     end
     
     it "should return 'mm' for :millimeters" do
-      Units.svg_name(:millimeters).should == 'mm'
+      expect(Units.svg_name(:millimeters)).to eq('mm')
     end
     
     it "should return '' for :none" do
-      Units.svg_name(:none).should == ''
+      expect(Units.svg_name(:none)).to eq('')
     end
     
     it "should raise an exception if called with an unknown unit" do
-      lambda {
+      expect {
         Units.svg_name(:error)
-      }.should raise_error
+      }.to raise_error
     end
   end
   
   describe ".stroke_width" do
     it "should return 'in' for :inches" do
-      Units.stroke_width(:inches).should == 0.005
+      expect(Units.stroke_width(:inches)).to eq(0.005)
     end
     
     it "should return 'cm' for :centimeters" do
-      Units.stroke_width(:centimeters).should == 0.01
+      expect(Units.stroke_width(:centimeters)).to eq(0.01)
     end
     
     it "should return 'mm' for :millimeters" do
-      Units.stroke_width(:millimeters).should == 0.1
+      expect(Units.stroke_width(:millimeters)).to eq(0.1)
     end
     
     it "should return '' for :none" do
-      Units.stroke_width(:none).should == 0.1
+      expect(Units.stroke_width(:none)).to eq(0.1)
     end
     
     it "should raise an exception if called with an unknown unit" do
-      lambda {
+      expect {
         Units.stroke_width(:error)
-      }.should raise_error
+      }.to raise_error
     end
   end
 end

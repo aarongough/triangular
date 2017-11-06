@@ -8,19 +8,19 @@ describe Point do
       end
 
       it "should return a point object" do
-        @result.should be_a Point
+        expect(@result).to be_a Point
       end
 
       it "should correctly set the X value" do
-        @result.x.should == 16.5
+        expect(@result.x).to eq(16.5)
       end
 
       it "should correctly set the Y value" do
-        @result.y.should == 0
+        expect(@result.y).to eq(0)
       end
 
       it "should correctly set the Z value" do
-        @result.z.should == -0.75
+        expect(@result.z).to eq(-0.75)
       end
     end
 
@@ -30,15 +30,15 @@ describe Point do
       end
 
       it "should correctly set the X value" do
-        @result.x.should == -5.23431439438796e-32
+        expect(@result.x).to eq(-5.23431439438796e-32)
       end
 
       it "should correctly set the Y value" do
-        @result.y.should == 0.0
+        expect(@result.y).to eq(0.0)
       end
 
       it "should correctly set the Z value" do
-        @result.z.should == 5.23431439438796e32
+        expect(@result.z).to eq(5.23431439438796e32)
       end
     end
   end
@@ -46,22 +46,22 @@ describe Point do
   describe "#to_s" do
     it "should return the XYZ components separated by spaces" do
       point = Point.new(1.0, 2.0, -3.1)
-      point.to_s.should == "1.0 2.0 -3.1"
+      expect(point.to_s).to eq("1.0 2.0 -3.1")
     end
 
     it "should convert integers into floats for output" do
       point = Point.new(1, 2, 3)
-      point.to_s.should == "1.0 2.0 3.0"
+      expect(point.to_s).to eq("1.0 2.0 3.0")
     end
   end
 
   describe "#==" do
     it "should return true when the points have identical values" do
-      (Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.1)).should be true
+      expect(Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.1)).to be true
     end
 
     it "should return false when the points do not have identical values" do
-      (Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.2)).should be false
+      expect(Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.2)).to be false
     end
   end
 
@@ -72,17 +72,17 @@ describe Point do
 
     it "should add the supplied value to X" do
       @point.translate!(16.5, 9.5, 0.75)
-      @point.x.should == 17.5
+      expect(@point.x).to eq(17.5)
     end
 
     it "should add the supplied value to Y" do
       @point.translate!(16.5, 9.5, 0.75)
-      @point.y.should == 10.5
+      expect(@point.y).to eq(10.5)
     end
 
     it "should add the supplied value to Z" do
       @point.translate!(16.5, 9.5, 0.75)
-      @point.z.should == 1.75
+      expect(@point.z).to eq(1.75)
     end
   end
 end
