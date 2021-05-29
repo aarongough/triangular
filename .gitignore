@@ -3,3 +3,4 @@ pkg/*
 .bundle
 coverage
 *.DS_Store
+.rspec_status

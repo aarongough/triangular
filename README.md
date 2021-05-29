@@ -59,6 +59,21 @@ For example here is some information about run-times when processing a 51Mb STL 
   # 2 seconds
   ```
 
+### Development
+
+To get setup for local development of Triangular please run the following steps:
+
+```
+git clone git@github.com:aarongough/triangular.git
+cd triangular
+bundle install
+```
+
+Then run the specs to make sure everything is workin!
+```
+rpsec
+```
+
 ### Author & Credits
 
 Author: [Aaron Gough](mailto:aaron@aarongough.com)
