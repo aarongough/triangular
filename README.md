@@ -9,38 +9,38 @@ Please note that Triangular requires Ruby 1.9+. Triangular is currently in the A
 ### A Quick Example
   
 
-  ```ruby
-  require "rubygems"
-  require "triangular"
+```ruby
+require "rubygems"
+require "triangular"
 
-  # Open and parse an STL file
-  solid = Triangular.parse_file("test.stl")
-  
-  # Set the units of measurement for the resulting solid to inches
-  solid.units = :inches
+# Open and parse an STL file
+solid = Triangular.parse_file("test.stl")
 
-  # Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
-  solid.align_to_origin!
-  
-  # Get the bounding box of the solid
-  bounds = solid.get_bounds
+# Set the units of measurement for the resulting solid to inches
+solid.units = :inches
 
-  # Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
-  slice = solid.slice_at_z(0.7)
+# Move the solid so that all of it's coordinates are in positive space (ie: greater than 0)
+solid.align_to_origin!
 
-  # Open a file for SVG output
-  File.open("slice.svg", "w+") do |file|
-  
-    # Output the slice as an SVG document (correctly scaled according to the solid's units)
-    file.puts slice.to_svg(bounds[1].x, bounds[1].y, solid.units)
-  end
-  ```
+# Get the bounding box of the solid
+bounds = solid.get_bounds
+
+# Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
+slice = solid.slice_at_z(0.7)
+
+# Open a file for SVG output
+File.open("slice.svg", "w+") do |file|
+
+  # Output the slice as an SVG document (correctly scaled according to the solid's units)
+  file.puts slice.to_svg(bounds[1].x, bounds[1].y, solid.units)
+end
+```
 
 ### Installation
 
 For ease of use Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
 
-  gem install triangular
+  `gem install triangular`
   
 ### Performance
 
@@ -48,6 +48,7 @@ At the moment Triangular has not been optimized at all. The parser is a relative
 
 For example here is some information about run-times when processing a 51Mb STL file:
 
+  ```ruby
   solid = Triangular.parse("big_file.stl")
   # 65 seconds
   
@@ -56,12 +57,13 @@ For example here is some information about run-times when processing a 51Mb STL 
   
   solid.slice_at_z(1.0)
   # 2 seconds
+  ```
 
 ### Author & Credits
 
-Author:: {Aaron Gough}[mailto:aaron@aarongough.com]
+Author: [Aaron Gough](mailto:aaron@aarongough.com)
 
-Special thanks go out to {Alkas Baybas}[https://github.com/abaybas] for lending me his massive brain!
+Special thanks go out to [Alkas Baybas](https://github.com/abaybas) for lending me his massive brain!
 
-Copyright (c) 2021 {Aaron Gough}[http://thingsaaronmade.com/] ({thingsaaronmade.com}[http://thingsaaronmade.com/]), released under the MIT license
+Copyright (c) 2021 [Aaron Gough](http://aarongough.com/) ([http://aarongough.com](http://aarongough.com/)), released under the MIT license
 
