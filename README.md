@@ -27,7 +27,7 @@ solid.units = :inches
 solid.align_to_origin!
 
 # Get the bounding box of the solid
-bounds = solid.get_bounds
+bounds = solid.bounds
 
 # Create a section plane ('slice') through the solid on the XY plane at a Z height of 0.7
 slice = solid.slice_at_z(0.7)
