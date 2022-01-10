@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'triangular/point'
 require 'triangular/vertex'
 require 'triangular/vector'

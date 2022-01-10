@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Triangular
   class Line
     attr_accessor :start, :end
@@ -14,11 +16,7 @@ module Triangular
     end
 
     def intersects_x?(x_plane)
-      if (@start.x >= x_plane && @end.x <= x_plane) || (@start.x <= x_plane && @end.x >= x_plane)
-        true
-      else
-        false
-      end
+      (@start.x >= x_plane && @end.x <= x_plane) || (@start.x <= x_plane && @end.x >= x_plane)
     end
 
     def intersection_at_x(x_plane)
@@ -32,11 +30,7 @@ module Triangular
     end
 
     def intersects_y?(y_plane)
-      if (@start.y >= y_plane && @end.y <= y_plane) || (@start.y <= y_plane && @end.y >= y_plane)
-        true
-      else
-        false
-      end
+      (@start.y >= y_plane && @end.y <= y_plane) || (@start.y <= y_plane && @end.y >= y_plane)
     end
 
     def intersection_at_y(y_plane)
@@ -50,11 +44,7 @@ module Triangular
     end
 
     def intersects_z?(z_plane)
-      if (@start.z >= z_plane && @end.z <= z_plane) || (@start.z <= z_plane && @end.z >= z_plane)
-        true
-      else
-        false
-      end
+      (@start.z >= z_plane && @end.z <= z_plane) || (@start.z <= z_plane && @end.z >= z_plane)
     end
 
     def intersection_at_z(z_plane)

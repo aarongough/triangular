@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 module Triangular
@@ -32,8 +34,7 @@ module Triangular
     end
 
     def self.parse(string)
-      string.strip!
-      match_data = string.match(pattern)
+      match_data = string.strip.match(pattern)
 
       new(Point.parse(match_data[:point]))
     end

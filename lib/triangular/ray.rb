@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Triangular
   class Ray
     attr_accessor :x, :y

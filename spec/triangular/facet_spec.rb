@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe Facet do
+describe Triangular::Facet do
   describe '.parse' do
     context 'with a correctly formatted facet' do
-      before do
-        @result = Facet.parse(<<-EOD)
+      before :each do
+        @result = Triangular::Facet.parse(<<-FACET)
           facet normal 0.0 0.0 -1.0
           outer loop
           vertex 16.5 0.0 -0.75
@@ -12,11 +14,11 @@ describe Facet do
           vertex 0.0 0.0 -0.75
           endloop
           endfacet
-        EOD
+        FACET
       end
 
       it 'should return a facet object' do
-        expect(@result).to be_a Facet
+        expect(@result).to be_a Triangular::Facet
       end
 
       it 'should return a facet with 3 vertices' do
@@ -25,12 +27,12 @@ describe Facet do
 
       it 'should return a facet with vertices of type Vertex' do
         @result.vertices.each do |vertex|
-          expect(vertex).to be_a Vertex
+          expect(vertex).to be_a Triangular::Vertex
         end
       end
 
       it 'should return a facet with a normal of type Vector' do
-        expect(@result.normal).to be_a Vector
+        expect(@result.normal).to be_a Triangular::Vector
       end
 
       it 'should correctly set the normal values' do
@@ -60,7 +62,7 @@ describe Facet do
 
     context 'when passed multiple facets' do
       before do
-        @result = Facet.parse(<<-EOD)
+        @result = Triangular::Facet.parse(<<-FACET)
           facet normal 0.0 0.0 -1.0
           outer loop
           vertex 16.5 0.0 -0.75
@@ -75,13 +77,13 @@ describe Facet do
           vertex 0.0 0.0 -0.75
           endloop
           endfacet
-        EOD
+        FACET
       end
 
       it 'should return multiple facet objects' do
         expect(@result).to be_a Array
         @result.each do |item|
-          expect(item).to be_a Facet
+          expect(item).to be_a Triangular::Facet
         end
       end
     end
@@ -89,17 +91,17 @@ describe Facet do
 
   describe '#to_s' do
     it 'should return the string representation for a facet' do
-      facet = Facet.new
-      facet.normal = Vector.new(0, 0, 1)
-      facet.vertices << Point.new(1, 2, 3)
-      facet.vertices << Point.new(1, 2, 3)
-      facet.vertices << Point.new(1, 2, 3)
+      facet = Triangular::Facet.new
+      facet.normal = Triangular::Vector.new(0, 0, 1)
+      facet.vertices << Triangular::Point.new(1, 2, 3)
+      facet.vertices << Triangular::Point.new(1, 2, 3)
+      facet.vertices << Triangular::Point.new(1, 2, 3)
 
       expected_string  = "facet normal 0.0 0.0 1.0\n"
       expected_string += "outer loop\n"
-      expected_string += facet.vertices[0].to_s + "\n"
-      expected_string += facet.vertices[1].to_s + "\n"
-      expected_string += facet.vertices[2].to_s + "\n"
+      expected_string += "#{facet.vertices[0]}\n"
+      expected_string += "#{facet.vertices[1]}\n"
+      expected_string += "#{facet.vertices[2]}\n"
       expected_string += "endloop\n"
       expected_string += "endfacet\n"
 
@@ -110,16 +112,16 @@ describe Facet do
   describe '#intersection_at_z' do
     context 'for a facet that intersects the target Z plane' do
       before do
-        vertex1 = Vertex.new(0.0, 0.0, 0.0)
-        vertex2 = Vertex.new(0.0, 0.0, 6.0)
-        vertex3 = Vertex.new(6.0, 0.0, 6.0)
+        vertex1 = Triangular::Vertex.new(0.0, 0.0, 0.0)
+        vertex2 = Triangular::Vertex.new(0.0, 0.0, 6.0)
+        vertex3 = Triangular::Vertex.new(6.0, 0.0, 6.0)
 
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+        @facet = Triangular::Facet.new(nil, vertex1, vertex2, vertex3)
       end
 
       context 'when the target Z plane is 3.0' do
         it 'should return a line object' do
-          expect(@facet.intersection_at_z(3.0)).to be_a Line
+          expect(@facet.intersection_at_z(3.0)).to be_a Triangular::Line
         end
 
         it 'should return a line with the correct start value' do
@@ -137,7 +139,7 @@ describe Facet do
 
       context 'when the target Z plane is 6.0' do
         it 'should return a line object' do
-          expect(@facet.intersection_at_z(6.0)).to be_a Line
+          expect(@facet.intersection_at_z(6.0)).to be_a Triangular::Line
         end
 
         it 'should return a line with the correct start value' do
@@ -156,7 +158,7 @@ describe Facet do
 
     context 'with vertices in both positive and negative space' do
       before do
-        @facet = Facet.parse(<<-EOD)
+        @facet = Triangular::Facet.parse(<<-FACET)
           facet normal -0.0 1.0 -0.0
           outer loop
           vertex -1.0 1.0 1.0
@@ -164,7 +166,7 @@ describe Facet do
           vertex -1.0 1.0 -1.0
           endloop
           endfacet
-        EOD
+        FACET
       end
 
       it 'should return a line with the correct start value' do
@@ -182,11 +184,11 @@ describe Facet do
 
     context 'for a facet that lies on the target Z plane' do
       before do
-        vertex1 = Vertex.new(0.0, 0.0, 1.0)
-        vertex2 = Vertex.new(2.0, 0.0, 1.0)
-        vertex3 = Vertex.new(2.0, 2.0, 1.0)
+        vertex1 = Triangular::Vertex.new(0.0, 0.0, 1.0)
+        vertex2 = Triangular::Vertex.new(2.0, 0.0, 1.0)
+        vertex3 = Triangular::Vertex.new(2.0, 2.0, 1.0)
 
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+        @facet = Triangular::Facet.new(nil, vertex1, vertex2, vertex3)
       end
 
       it 'should return nil' do
@@ -196,11 +198,11 @@ describe Facet do
 
     context 'for a facet that does not intersect the target Z plane' do
       before do
-        vertex1 = Vertex.new(0.0, 0.0, 0.0)
-        vertex2 = Vertex.new(2.0, 0.0, 0.0)
-        vertex3 = Vertex.new(2.0, 2.0, 0.0)
+        vertex1 = Triangular::Vertex.new(0.0, 0.0, 0.0)
+        vertex2 = Triangular::Vertex.new(2.0, 0.0, 0.0)
+        vertex3 = Triangular::Vertex.new(2.0, 2.0, 0.0)
 
-        @facet = Facet.new(nil, vertex1, vertex2, vertex3)
+        @facet = Triangular::Facet.new(nil, vertex1, vertex2, vertex3)
       end
 
       it 'should return nil' do
@@ -211,7 +213,7 @@ describe Facet do
 
   describe '#translate!' do
     before do
-      @facet = Facet.parse(<<-EOD)
+      @facet = Triangular::Facet.parse(<<-FACET)
         facet normal 0.0 0.0 -1.0
         outer loop
         vertex -16.5 0.0 -0.75
@@ -219,7 +221,7 @@ describe Facet do
         vertex 0.0 0.0 -0.75
         endloop
         endfacet
-      EOD
+      FACET
     end
 
     it "should call translate on each of it's Vertices" do

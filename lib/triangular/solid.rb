@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Triangular
   class Solid
     attr_accessor :name, :facets, :units
@@ -11,20 +13,20 @@ module Triangular
     def to_s
       output = "solid #{@name || ''}\n"
       @facets.each do |facet|
-        output << "facet normal #{facet.normal.x.to_f} #{facet.normal.y.to_f} #{facet.normal.z.to_f}\n"
-        output << "outer loop\n"
+        output += "facet normal #{facet.normal.x.to_f} #{facet.normal.y.to_f} #{facet.normal.z.to_f}\n"
+        output += "outer loop\n"
         facet.vertices.each do |vertex|
-          output << "vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
+          output += "vertex #{vertex.x.to_f} #{vertex.y.to_f} #{vertex.z.to_f}\n"
         end
-        output << "endloop\n"
-        output << "endfacet\n"
+        output += "endloop\n"
+        output += "endfacet\n"
       end
-      output << "endsolid #{@name || ''}\n"
+      output += "endsolid #{@name || ''}\n"
 
       output
     end
 
-    def get_bounds
+    def bounds
       largest_x = @facets[0].vertices[0].x
       largest_y = @facets[0].vertices[0].y
       largest_z = @facets[0].vertices[0].z
@@ -49,13 +51,10 @@ module Triangular
     end
 
     def align_to_origin!
-      bounds = get_bounds
       translate!(-bounds[0].x, -bounds[0].y, -bounds[0].z)
     end
 
     def center!
-      bounds = get_bounds
-
       x_translation = ((bounds[1].x - bounds[0].x).abs / 2) + -bounds[1].x
       y_translation = ((bounds[1].y - bounds[0].y).abs / 2) + -bounds[1].y
       z_translation = ((bounds[1].z - bounds[0].z).abs / 2) + -bounds[1].z

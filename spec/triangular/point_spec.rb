@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe Point do
+describe Triangular::Point do
   describe '.parse' do
     context 'with a correctly formatted point' do
       before do
-        @result = Point.parse('  16.5 0.0 -0.75 ')
+        @result = Triangular::Point.parse('  16.5 0.0 -0.75 ')
       end
 
       it 'should return a point object' do
-        expect(@result).to be_a Point
+        expect(@result).to be_a Triangular::Point
       end
 
       it 'should correctly set the X value' do
@@ -26,7 +28,7 @@ describe Point do
 
     context 'with a point that contains exponential notation' do
       before do
-        @result = Point.parse('  -5.23431439438796e-32 0.0 5.23431439438796e32 ')
+        @result = Triangular::Point.parse('  -5.23431439438796e-32 0.0 5.23431439438796e32 ')
       end
 
       it 'should correctly set the X value' do
@@ -45,29 +47,29 @@ describe Point do
 
   describe '#to_s' do
     it 'should return the XYZ components separated by spaces' do
-      point = Point.new(1.0, 2.0, -3.1)
+      point = Triangular::Point.new(1.0, 2.0, -3.1)
       expect(point.to_s).to eq('1.0 2.0 -3.1')
     end
 
     it 'should convert integers into floats for output' do
-      point = Point.new(1, 2, 3)
+      point = Triangular::Point.new(1, 2, 3)
       expect(point.to_s).to eq('1.0 2.0 3.0')
     end
   end
 
   describe '#==' do
     it 'should return true when the points have identical values' do
-      expect(Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.1)).to be true
+      expect(Triangular::Point.new(1.0, 2.0, -3.1) == Triangular::Point.new(1.0, 2.0, -3.1)).to be true
     end
 
     it 'should return false when the points do not have identical values' do
-      expect(Point.new(1.0, 2.0, -3.1) == Point.new(1.0, 2.0, -3.2)).to be false
+      expect(Triangular::Point.new(1.0, 2.0, -3.1) == Triangular::Point.new(1.0, 2.0, -3.2)).to be false
     end
   end
 
   describe '#translate!' do
     before do
-      @point = Point.new(1.0, 1.0, 1.0)
+      @point = Triangular::Point.new(1.0, 1.0, 1.0)
     end
 
     it 'should add the supplied value to X' do

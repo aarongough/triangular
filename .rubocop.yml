@@ -10,3 +10,22 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames: ['x', 'y', 'z']
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+  CountRepeatedAttributes: false
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/CyclomaticComplexity:
+  Max: 10

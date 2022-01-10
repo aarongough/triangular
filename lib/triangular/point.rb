@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Triangular
   class Point
     attr_accessor :x, :y, :z
@@ -25,8 +27,7 @@ module Triangular
     end
 
     def self.parse(string)
-      string.strip!
-      match_data = string.match(pattern)
+      match_data = string.strip.match(pattern)
 
       new(match_data[:x].to_f, match_data[:y].to_f, match_data[:z].to_f)
     end

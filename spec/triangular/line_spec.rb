@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe Line do
+describe Triangular::Line do
   describe '#intersects_z?' do
     context 'for a line that intersects the target Z plane' do
       context 'with a positive Z vector' do
         before do
-          @line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(0.0, 0.0, 6.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 0.0), Triangular::Vertex.new(0.0, 0.0, 6.0))
         end
 
         it 'should return true' do
@@ -15,7 +17,7 @@ describe Line do
 
       context 'with a negative Z vector' do
         before do
-          @line = Line.new(Vertex.new(0.0, 0.0, 6.0), Vertex.new(0.0, 0.0, 0.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 6.0), Triangular::Vertex.new(0.0, 0.0, 0.0))
         end
 
         it 'should return true' do
@@ -26,7 +28,7 @@ describe Line do
 
     context 'for a line that does not intersect the target Z plane' do
       before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 4.0), Triangular::Vertex.new(0.0, 0.0, 6.0))
       end
 
       it 'should return false' do
@@ -40,7 +42,7 @@ describe Line do
       context 'and spans both positive and negative space' do
         context 'with a positive Z vector' do
           before do
-            @line = Line.new(Vertex.new(-1.0, 1.0, 1.0), Vertex.new(1.0, 1.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(-1.0, 1.0, 1.0), Triangular::Vertex.new(1.0, 1.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -52,7 +54,8 @@ describe Line do
 
         context 'with a negative Z vector' do
           before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(1.0, 1.0, 1.0),
+                                         Triangular::Vertex.new(-1.0, -1.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -66,7 +69,7 @@ describe Line do
 
     context 'for a line that lies on the target Z plane' do
       before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 3.0), Vertex.new(0.0, 6.0, 3.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 3.0), Triangular::Vertex.new(0.0, 6.0, 3.0))
       end
 
       it 'should raise an error' do
@@ -76,7 +79,7 @@ describe Line do
 
     context 'for a line that does not intersect the target Z plane' do
       before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 4.0), Triangular::Vertex.new(0.0, 0.0, 6.0))
       end
 
       it 'should return nil' do
@@ -89,7 +92,7 @@ describe Line do
     context 'for a line that intersects the target X plane' do
       context 'with a positive X vector' do
         before do
-          @line = Line.new(Vertex.new(2.0, 0.0, 0.0), Vertex.new(3.2, 0.0, 6.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(2.0, 0.0, 0.0), Triangular::Vertex.new(3.2, 0.0, 6.0))
         end
 
         it 'should return true' do
@@ -99,7 +102,7 @@ describe Line do
 
       context 'with a negative X vector' do
         before do
-          @line = Line.new(Vertex.new(3.2, 0.0, 6.0), Vertex.new(2.0, 0.0, 0.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(3.2, 0.0, 6.0), Triangular::Vertex.new(2.0, 0.0, 0.0))
         end
 
         it 'should return true' do
@@ -110,7 +113,7 @@ describe Line do
 
     context 'for a line that does not intersect the target X plane' do
       before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 4.0), Triangular::Vertex.new(0.0, 0.0, 6.0))
       end
 
       it 'should return false' do
@@ -124,7 +127,7 @@ describe Line do
       context 'and spans both positive and negative space' do
         context 'with a positive X vector' do
           before do
-            @line = Line.new(Vertex.new(-1.0, 2.0, 1.0), Vertex.new(1.0, 2.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(-1.0, 2.0, 1.0), Triangular::Vertex.new(1.0, 2.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -136,7 +139,8 @@ describe Line do
 
         context 'with a negative X vector' do
           before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(1.0, 1.0, 1.0),
+                                         Triangular::Vertex.new(-1.0, -1.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -150,7 +154,7 @@ describe Line do
 
     context 'for a line that lies on the target X plane' do
       before do
-        @line = Line.new(Vertex.new(3.0, 0.0, 3.0), Vertex.new(3.0, 6.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(3.0, 0.0, 3.0), Triangular::Vertex.new(3.0, 6.0, 6.0))
       end
 
       it 'should raise an error' do
@@ -160,7 +164,7 @@ describe Line do
 
     context 'for a line that does not intersect the target X plane' do
       before do
-        @line = Line.new(Vertex.new(4.0, 0.0, 4.0), Vertex.new(6.0, 0.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(4.0, 0.0, 4.0), Triangular::Vertex.new(6.0, 0.0, 6.0))
       end
 
       it 'should return nil' do
@@ -173,7 +177,7 @@ describe Line do
     context 'for a line that intersects the target Y plane' do
       context 'with a positive Y vector' do
         before do
-          @line = Line.new(Vertex.new(0.0, 2.0, 0.0), Vertex.new(0.0, 3.1, 6.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 2.0, 0.0), Triangular::Vertex.new(0.0, 3.1, 6.0))
         end
 
         it 'should return true' do
@@ -183,7 +187,7 @@ describe Line do
 
       context 'with a negative Y vector' do
         before do
-          @line = Line.new(Vertex.new(0.0, 3.1, 6.0), Vertex.new(0.0, 2.0, 0.0))
+          @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 3.1, 6.0), Triangular::Vertex.new(0.0, 2.0, 0.0))
         end
 
         it 'should return true' do
@@ -194,7 +198,7 @@ describe Line do
 
     context 'for a line that does not intersect the target Y plane' do
       before do
-        @line = Line.new(Vertex.new(0.0, 0.0, 4.0), Vertex.new(0.0, 0.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 4.0), Triangular::Vertex.new(0.0, 0.0, 6.0))
       end
 
       it 'should return false' do
@@ -208,7 +212,7 @@ describe Line do
       context 'and spans both positive and negative space' do
         context 'with a positive Y vector' do
           before do
-            @line = Line.new(Vertex.new(2.0, -1.0, 1.0), Vertex.new(2.0, 1.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(2.0, -1.0, 1.0), Triangular::Vertex.new(2.0, 1.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -220,7 +224,8 @@ describe Line do
 
         context 'with a negative Y vector' do
           before do
-            @line = Line.new(Vertex.new(1.0, 1.0, 1.0), Vertex.new(-1.0, -1.0, -1.0))
+            @line = Triangular::Line.new(Triangular::Vertex.new(1.0, 1.0, 1.0),
+                                         Triangular::Vertex.new(-1.0, -1.0, -1.0))
           end
 
           it 'should return a Point representing the intersection' do
@@ -234,7 +239,7 @@ describe Line do
 
     context 'for a line that lies on the target Y plane' do
       before do
-        @line = Line.new(Vertex.new(3.0, 3.0, 3.0), Vertex.new(3.0, 3.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(3.0, 3.0, 3.0), Triangular::Vertex.new(3.0, 3.0, 6.0))
       end
 
       it 'should raise an error' do
@@ -244,7 +249,7 @@ describe Line do
 
     context 'for a line that does not intersect the target Y plane' do
       before do
-        @line = Line.new(Vertex.new(4.0, 4.0, 4.0), Vertex.new(6.0, 6.0, 6.0))
+        @line = Triangular::Line.new(Triangular::Vertex.new(4.0, 4.0, 4.0), Triangular::Vertex.new(6.0, 6.0, 6.0))
       end
 
       it 'should return nil' do
@@ -255,21 +260,23 @@ describe Line do
 
   describe '==' do
     it 'should return true when the two lines are identical' do
-      expect(Line.new(Vertex.new(-1.0, -1.0, -1.0),
-                      Vertex.new(1.0, 1.0,
-                                 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).to be true
+      expect(
+        Triangular::Line.new(Triangular::Vertex.new(-1.0, -1.0, -1.0), Triangular::Vertex.new(1.0, 1.0, 1.0)) ==
+        Triangular::Line.new(Triangular::Vertex.new(-1.0, -1.0, -1.0), Triangular::Vertex.new(1.0, 1.0, 1.0))
+      ).to be true
     end
 
     it 'should not return true when the lines are not identical' do
-      expect(Line.new(Vertex.new(-1.0, -1.0, -1.1),
-                      Vertex.new(1.0, 1.0,
-                                 1.0)) == Line.new(Vertex.new(-1.0, -1.0, -1.0), Vertex.new(1.0, 1.0, 1.0))).to be false
+      expect(
+        Triangular::Line.new(Triangular::Vertex.new(-1.0, -1.0, -1.1), Triangular::Vertex.new(1.0, 1.0, 1.0)) ==
+        Triangular::Line.new(Triangular::Vertex.new(-1.0, -1.0, -1.0), Triangular::Vertex.new(1.0, 1.0, 1.0))
+      ).to be false
     end
   end
 
   describe '#to_svg_path' do
     it 'should return a string containing an SVG path' do
-      line = Line.new(Vertex.new(0.0, 0.0, 0.0), Vertex.new(1.0, 1.0, 1.0))
+      line = Triangular::Line.new(Triangular::Vertex.new(0.0, 0.0, 0.0), Triangular::Vertex.new(1.0, 1.0, 1.0))
       expected_output = '<path d="M 0.0 0.0 L 1.0 1.0" fill="none" stroke="black" stroke-width="0.005" />'
 
       expect(line.to_svg_path(:inches)).to eq(expected_output)

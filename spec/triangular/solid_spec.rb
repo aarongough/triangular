@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe Solid do
+describe Triangular::Solid do
   describe '.parse' do
     context 'with a correctly formatted solid' do
       before do
-        @result = Solid.parse(<<~EOD)
+        @result = Triangular::Solid.parse(<<~SOLID)
           solid y-axis-spacer
           facet normal 0.0 0.0 -1.0
           outer loop
@@ -21,11 +23,11 @@ describe Solid do
           endloop
           endfacet
           endsolid y-axis-spacer
-        EOD
+        SOLID
       end
 
       it 'should return a Solid' do
-        expect(@result).to be_a Solid
+        expect(@result).to be_a Triangular::Solid
       end
 
       it 'should correctly set the name parameter' do
@@ -38,7 +40,7 @@ describe Solid do
 
       it 'should return a Solid that has facets of type Facet' do
         @result.facets.each do |facet|
-          expect(facet).to be_a Facet
+          expect(facet).to be_a Triangular::Facet
         end
       end
     end
@@ -63,7 +65,7 @@ describe Solid do
       input += "endfacet\n"
       input += "endsolid y-axis-spacer\n"
 
-      solid = Solid.parse(input)
+      solid = Triangular::Solid.parse(input)
       output = solid.to_s
 
       expect(output).to eq(input)
@@ -72,17 +74,17 @@ describe Solid do
 
   describe '#slice_at_z' do
     before do
-      @solid = Solid.parse(File.open("#{File.dirname(__FILE__)}/fixtures/test_cube.stl").read)
+      @solid = Triangular::Solid.parse(File.open("#{File.dirname(__FILE__)}/../fixtures/test_cube.stl").read)
     end
 
     it 'should return a Polyline' do
-      expect(@solid.slice_at_z(0)).to be_a Polyline
+      expect(@solid.slice_at_z(0)).to be_a Triangular::Polyline
     end
   end
 
-  describe '#get_bounds' do
+  describe '#bounds' do
     before do
-      @solid = Solid.parse(<<-EOD)
+      @solid = Triangular::Solid.parse(<<-SOLID)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -99,29 +101,29 @@ describe Solid do
         endloop
         endfacet
         endsolid y-axis-spacer
-      EOD
+      SOLID
     end
 
     it 'should return an array' do
-      expect(@solid.get_bounds).to be_a Array
+      expect(@solid.bounds).to be_a Array
     end
 
     it 'should return a point with the smallest bounds' do
-      expect(@solid.get_bounds[0].x).to eq(-16.5)
-      expect(@solid.get_bounds[0].y).to eq(-9.5)
-      expect(@solid.get_bounds[0].z).to eq(-0.75)
+      expect(@solid.bounds[0].x).to eq(-16.5)
+      expect(@solid.bounds[0].y).to eq(-9.5)
+      expect(@solid.bounds[0].z).to eq(-0.75)
     end
 
     it 'should return a point with the largest bounds' do
-      expect(@solid.get_bounds[1].x).to eq(16.5)
-      expect(@solid.get_bounds[1].y).to eq(1.87)
-      expect(@solid.get_bounds[1].z).to eq(0.0)
+      expect(@solid.bounds[1].x).to eq(16.5)
+      expect(@solid.bounds[1].y).to eq(1.87)
+      expect(@solid.bounds[1].z).to eq(0.0)
     end
   end
 
   describe '#translate!' do
     before do
-      @solid = Solid.parse(<<-EOD)
+      @solid = Triangular::Solid.parse(<<-SOLID)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -138,7 +140,7 @@ describe Solid do
         endloop
         endfacet
         endsolid y-axis-spacer
-      EOD
+      SOLID
     end
 
     it "should call translate on each of it's Facets" do
@@ -151,7 +153,7 @@ describe Solid do
 
   describe '#align_to_origin!' do
     before do
-      @solid = Solid.parse(<<-EOD)
+      @solid = Triangular::Solid.parse(<<-SOLID)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -168,7 +170,7 @@ describe Solid do
         endloop
         endfacet
         endsolid y-axis-spacer
-      EOD
+      SOLID
     end
 
     it 'should translate solid so the lowermost XYZ edges are all 0.0' do
@@ -179,7 +181,7 @@ describe Solid do
 
   describe '#center!' do
     before do
-      @solid = Solid.parse(<<-EOD)
+      @solid = Triangular::Solid.parse(<<-SOLID)
         solid y-axis-spacer
         facet normal 0.0 0.0 -1.0
         outer loop
@@ -196,7 +198,7 @@ describe Solid do
         endloop
         endfacet
         endsolid y-axis-spacer
-      EOD
+      SOLID
     end
 
     it 'should translate solid so the lowermost XYZ edges are all 0.0' do
