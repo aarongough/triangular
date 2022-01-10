@@ -1,12 +1,16 @@
-# Triangular
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+[![Actions Status](https://github.com/aarongough/triangular/actions/workflows/build.yml/badge.svg)](https://github.com/aarongough/triangular/actions/workflows/build.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e64ecb8e1c703a010077/maintainability)](https://codeclimate.com/github/aarongough/triangular/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e64ecb8e1c703a010077/test_coverage)](https://codeclimate.com/github/aarongough/triangular/test_coverage)
+[![Gem Version](https://badge.fury.io/rb/triangular.svg)](https://badge.fury.io/rb/triangular)
+
+# Triangular:
 
 Triangular is an easy-to-use Ruby library for reading, writing and manipulating Stereolithography (STL) files.
 
 The main purpose of Triangular is to enable its users to quickly create new software for Rapid Prototyping and Personal Manufacturing applications. Triangular has many of the core functions needed in order to generate toolpaths for 3D printers and CNC Mills/Routers.
 
-Please note that Triangular requires Ruby 1.9+. Triangular is currently in the Alpha stage of development which means that the API can and will change, and that new features will be added often!
-
-### A Quick Example
+### Usage:
   
 
 ```ruby
@@ -36,13 +40,23 @@ File.open("slice.svg", "w+") do |file|
 end
 ```
 
-### Installation
+### Installation:
 
-For ease of use Triangular is packaged as a RubyGem. Providing you already have Ruby and RubyGems installing Triangular is as easy as entering the following command in a terminal:
+Add Triangular to your Gemfile:
 
-  `gem install triangular`
+```ruby
+gem 'triangular', '~>0.1.0'
+```
+And then execute:
+```
+bundle install
+```
+Or install it manually by entering the following on your command line:
+```
+gem install triangular
+```
   
-### Performance
+### Performance:
 
 At the moment Triangular has not been optimized at all. The parser is a relatively naive one that was designed to be easy to read rather than performant. Once the feature-set of Triangular has stabilized I will be doing a pass over it in order to make it fast enough for production use. Right now it could definitely be improved.
 
@@ -59,7 +73,7 @@ For example here is some information about run-times when processing a 51Mb STL 
   # 2 seconds
   ```
 
-### Development
+### Development:
 
 To get setup for local development of Triangular please run the following steps:
 
@@ -69,16 +83,16 @@ cd triangular
 bundle install
 ```
 
-Then run the specs to make sure everything is workin!
+Then run the specs to make sure everything is working!
 ```
-rpsec
+bundle exec rspec
 ```
 
-### Author & Credits
+### Author & Credits:
 
 Author: [Aaron Gough](mailto:aaron@aarongough.com)
 
 Special thanks go out to [Alkas Baybas](https://github.com/abaybas) for lending me his massive brain!
 
-Copyright (c) 2021 [Aaron Gough](http://aarongough.com/) ([http://aarongough.com](http://aarongough.com/)), released under the MIT license
+Copyright © 2022 [Aaron Gough](http://aarongough.com/) ([http://aarongough.com](http://aarongough.com/)), released under the MIT license
 
