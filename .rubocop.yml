@@ -1,0 +1,12 @@
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+Style/SymbolProc:
+  IgnoredMethods: ['configure']
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false

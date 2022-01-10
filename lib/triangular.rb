@@ -12,7 +12,7 @@ module Triangular
   def self.parse(string)
     Solid.parse(string)
   end
-  
+
   def self.parse_file(path)
     File.open(path) do |file|
       Solid.parse(file.read)

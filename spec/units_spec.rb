@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Units do
-  describe ".name" do
+  describe '.name' do
     it "should return 'inches' for :inches" do
       expect(Units.name(:inches)).to eq('inches')
     end
@@ -18,14 +18,14 @@ describe Units do
       expect(Units.name(:none)).to eq('none')
     end
 
-    it "should raise an exception if called with an unknown unit" do
-      expect {
+    it 'should raise an exception if called with an unknown unit' do
+      expect do
         Units.name(:error)
-      }.to raise_error(Triangular::UnknownUnitError)
+      end.to raise_error(Triangular::UnknownUnitError)
     end
   end
 
-  describe ".svg_name" do
+  describe '.svg_name' do
     it "should return 'in' for :inches" do
       expect(Units.svg_name(:inches)).to eq('in')
     end
@@ -42,14 +42,14 @@ describe Units do
       expect(Units.svg_name(:none)).to eq('')
     end
 
-    it "should raise an exception if called with an unknown unit" do
-      expect {
+    it 'should raise an exception if called with an unknown unit' do
+      expect do
         Units.svg_name(:error)
-      }.to raise_error(Triangular::UnknownUnitError)
+      end.to raise_error(Triangular::UnknownUnitError)
     end
   end
 
-  describe ".stroke_width" do
+  describe '.stroke_width' do
     it "should return 'in' for :inches" do
       expect(Units.stroke_width(:inches)).to eq(0.005)
     end
@@ -66,10 +66,10 @@ describe Units do
       expect(Units.stroke_width(:none)).to eq(0.1)
     end
 
-    it "should raise an exception if called with an unknown unit" do
-      expect {
+    it 'should raise an exception if called with an unknown unit' do
+      expect do
         Units.stroke_width(:error)
-      }.to raise_error(Triangular::UnknownUnitError)
+      end.to raise_error(Triangular::UnknownUnitError)
     end
   end
 end
