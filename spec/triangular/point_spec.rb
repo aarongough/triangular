@@ -43,6 +43,24 @@ describe Triangular::Point do
         expect(@result.z).to eq(5.23431439438796e32)
       end
     end
+
+    context 'with a point with no fractional part' do
+      before do
+        @result = Triangular::Point.parse('  -5 0 5 ')
+      end
+
+      it 'should correctly set the X value' do
+        expect(@result.x).to eq(-5.0)
+      end
+
+      it 'should correctly set the Y value' do
+        expect(@result.y).to eq(0.0)
+      end
+
+      it 'should correctly set the Z value' do
+        expect(@result.z).to eq(5.0)
+      end
+    end
   end
 
   describe '#to_s' do

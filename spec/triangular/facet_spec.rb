@@ -60,62 +60,6 @@ describe Triangular::Facet do
       end
     end
 
-    context "with values without decimal parts" do
-      before :each do
-        @result = Triangular::Facet.parse(<<-FACET)
-          facet normal 0 0 -1
-            outer loop
-              vertex 16.5 0 -0.75
-              vertex 0 -9.5 -0.75
-              vertex 0 0 -0.75
-            endloop
-          endfacet
-        FACET
-      end
-
-      it 'should return a facet object' do
-        expect(@result).to be_a Triangular::Facet
-      end
-
-      it 'should return a facet with 3 vertices' do
-        expect(@result.vertices.length).to eq(3)
-      end
-
-      it 'should return a facet with vertices of type Vertex' do
-        @result.vertices.each do |vertex|
-          expect(vertex).to be_a Triangular::Vertex
-        end
-      end
-
-      it 'should return a facet with a normal of type Vector' do
-        expect(@result.normal).to be_a Triangular::Vector
-      end
-
-      it 'should correctly set the normal values' do
-        expect(@result.normal.x).to eq(0)
-        expect(@result.normal.y).to eq(0)
-        expect(@result.normal.z).to eq(-1)
-      end
-
-      it 'should correctly set the values for the first vertex' do
-        expect(@result.vertices[0].x).to eq(16.5)
-        expect(@result.vertices[0].y).to eq(0)
-        expect(@result.vertices[0].z).to eq(-0.75)
-      end
-
-      it 'should correctly set the values for the second vertex' do
-        expect(@result.vertices[1].x).to eq(0)
-        expect(@result.vertices[1].y).to eq(-9.5)
-        expect(@result.vertices[1].z).to eq(-0.75)
-      end
-
-      it 'should correctly set the values for the third vertex' do
-        expect(@result.vertices[2].x).to eq(0)
-        expect(@result.vertices[2].y).to eq(0)
-        expect(@result.vertices[2].z).to eq(-0.75)
-      end
-    end
-
     context 'when passed multiple facets' do
       before do
         @result = Triangular::Facet.parse(<<-FACET)
