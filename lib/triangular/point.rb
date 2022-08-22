@@ -33,7 +33,7 @@ module Triangular
     end
 
     def self.pattern
-      /(?<x>-?\d+.\d+(e-?\d+)?)\s(?<y>-?\d+.\d+(e-?\d+)?)\s(?<z>-?\d+.\d+(e-?\d+)?)/
+      /(?<x>-?\d+(.\d+(e-?\d+)?)?)\s(?<y>-?\d+(.\d+(e-?\d+)?)?)\s(?<z>-?\d+(.\d+(e-?\d+)?)?)/
     end
   end
 end
